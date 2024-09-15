@@ -414,7 +414,3 @@ Tracks which offers have been applied to bookings.
   - Amount discounted from the total price.
 
 ---
-
-This complete schema is designed to manage user registrations, field bookings, payments, offers, and promo code usage in a booking application. You can copy this to your GitHub README file and format it as needed.
-
-Let me know if you need further assistance or changes!
