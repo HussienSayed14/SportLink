@@ -1,4 +1,59 @@
-# SportLink
+# SportLink, **Football & Padel Field Booking Application**
+
+
+
+## **Project Overview**
+
+This is a comprehensive **Football and Padel Field Booking Application** designed to streamline the process of booking fields and managing reservations. The platform caters to both players and field owners, offering a seamless user experience for booking, payments, and tracking available fields and pitches.
+
+The backend is written in **Java**, utilizing robust frameworks like **Spring Boot** for RESTful APIs and **Hibernate** for ORM to ensure efficient data handling and scalability. The database is built to handle user authentication, bookings, payments, offers, and promo codes, with secure verification mechanisms such as phone or email OTP verification for user registration.
+
+### **Key Features:**
+- **User Registration and Authentication**:
+  - Players and field owners can register on the platform and manage their profiles.
+  - Secure authentication, password hashing, and failed login tracking.
+  - OTP verification via phone or email during registration.
+
+- **Field and Pitch Management**:
+  - Field owners can register football or padel fields, define availability, and set prices.
+  - Each field can have multiple pitches with configurable options like surface type, player capacity, and pitch type.
+
+- **Dynamic Booking System**:
+  - Users can view available fields and pitches in real-time and book them for specific hourly slots.
+  - Bookings include start and end times, price calculations, and automatic status updates (`Booked`, `Available`, `Blocked`).
+
+- **Promo Code and Offer System**:
+  - Users can apply promo codes for discounts on bookings.
+  - Field owners can create special offers on fields or pitches with configurable discount types (percentage or flat rate).
+
+- **Secure Payments**:
+  - Integrated payment system where users can pay for bookings using various methods like credit cards or cash.
+  - Payments are tracked and linked to bookings for easy management.
+
+- **User Verification**:
+  - OTP-based user verification for secure registration.
+  - Failed login attempts are tracked and can lead to account blocking after multiple unsuccessful tries.
+
+### **Technology Stack**:
+- **Backend**:
+  - **Java**: Core language for the backend.
+  - **Spring Boot**: Used for building RESTful APIs.
+  - **Hibernate**: ORM framework for database operations.
+  - **Spring Security**: For user authentication and authorization.
+
+- **Database**:
+  - **MySQL/PostgreSQL**: Relational database for managing user data, bookings, and payments.
+  - Structured with tables for Users, Fields, Pitches, Bookings, Payments, Offers, and Promo Codes.
+
+- **Frontend (optional)**:
+  - **React or Angular**: Could be used to create a responsive user interface for users to interact with the platform (to be implemented).
+
+
+
+
+
+
+
 
 ## Database Schema
 
