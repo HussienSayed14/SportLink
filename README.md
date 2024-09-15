@@ -1,9 +1,8 @@
 # SportLink
 
-
 ## Database Schema
 
-This schema is designed for a booking application, including user registration, verification, bookings, and offer management for football and padel fields.
+This schema includes tables for user registration, verification, bookings, payments, and offer management.
 
 ---
 
@@ -139,6 +138,36 @@ This schema is designed for a booking application, including user registration, 
 
 ---
 
+## Table: `Offer_Field`
+
+| Column              | Data Type               | Constraints           | Description                                                    |
+|---------------------|-------------------------|-----------------------|----------------------------------------------------------------|
+| `offer_id`          | `INT`                   | Foreign Key (FK)      | References the offer.                                           |
+| `field_id`          | `INT`                   | Foreign Key (FK)      | References the field.                                           |
+**Primary Key**: (`offer_id`, `field_id`)
+
+---
+
+## Table: `Offer_Pitch`
+
+| Column              | Data Type               | Constraints           | Description                                                    |
+|---------------------|-------------------------|-----------------------|----------------------------------------------------------------|
+| `offer_id`          | `INT`                   | Foreign Key (FK)      | References the offer.                                           |
+| `pitch_id`          | `INT`                   | Foreign Key (FK)      | References the pitch.                                           |
+**Primary Key**: (`offer_id`, `pitch_id`)
+
+---
+
+## Table: `Offer_HourlySlot`
+
+| Column              | Data Type               | Constraints           | Description                                                    |
+|---------------------|-------------------------|-----------------------|----------------------------------------------------------------|
+| `offer_id`          | `INT`                   | Foreign Key (FK)      | References the offer.                                           |
+| `hour_slot_id`      | `INT`                   | Foreign Key (FK)      | References the hourly slot.                                     |
+**Primary Key**: (`offer_id`, `hour_slot_id`)
+
+---
+
 ## Table: `PromoCode`
 
 | Column              | Data Type               | Constraints           | Description                                                    |
@@ -162,3 +191,27 @@ This schema is designed for a booking application, including user registration, 
 | `used_on`           | `TIMESTAMP`             | DEFAULT CURRENT_TIMESTAMP | Date and time when the promo code was used.               |
 
 ---
+
+## Table: `BookingOffer`
+
+| Column              | Data Type               | Constraints           | Description                                                    |
+|---------------------|-------------------------|-----------------------|----------------------------------------------------------------|
+| `booking_offer_id`  | `INT`                   | Primary Key (PK)      | Unique identifier for each booking offer.                       |
+| `booking_id`        | `INT`                   | Foreign Key (FK)      | References the booking.                                         |
+| `offer_id`          | `INT`                   | Foreign Key (FK)      | References the offer.                                           |
+| `discount_amount`   | `DECIMAL(10,2)`         | NOT NULL              | Amount discounted from the total price.                         |
+
+---
+
+## Table: `UserVerification`
+
+| Column              | Data Type               | Constraints           | Description                                             |
+|---------------------|-------------------------|-----------------------|---------------------------------------------------------|
+| `verification_id`    | `INT`                   | Primary Key (PK)      | Unique identifier for each verification attempt.         |
+| `user_id`           | `INT`                   | Foreign Key (FK)      | References the user attempting verification.             |
+| `verification_code`  | `VARCHAR(10)`           | NOT NULL              | Code sent to the user for verification.                  |
+| `code_type`         | `ENUM('Phone', 'Email')` | NOT NULL              | Type of verification (Phone/Email).                      |
+| `expires_at`        | `TIMESTAMP`             | NOT NULL              | Time when the verification code expires.                 |
+| `is_verified`       | `BOOLEAN`               | DEFAULT FALSE         | `TRUE` if the user is verified.                          |
+| `created_at`        | `TIMESTAMP`             | DEFAULT CURRENT_TIMESTAMP | Time when verification entry was created.            |
+| `attempt_count`     | `INT`                   | DEFAULT 0             | Number of verification attempts.                        |
