@@ -1,0 +1,21 @@
+## User Account Tasks
+
+- [] Sign Up
+  - [] Password Strength
+  - [] Password Hashing
+  - [] User Verification
+    - Verify by Phone number (Whatsapp Message) -> Send OTP
+- [] Sign In
+  - [] Lock Account for 1 Hour After 6 Failed Attempt
+  - [] Send account is locked notification
+  - [] Implement Mechanism to allow login after the lock period ends
+- [] Forgot Password
+- [] In-App Notification
+- [] Logout
+  - [] Delete Token from user cookies
+  - [] Remove User Session token from database
+- Logging & Auditing
+  - [] Audit every login attempt
+- User Profile
+  - [] Edit Profile Data
+  - [] Upload Profile Picture
