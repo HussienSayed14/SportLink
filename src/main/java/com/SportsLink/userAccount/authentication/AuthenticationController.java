@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/flapKap/api/v1/user")
+@RequestMapping("/sportsLink/api/v1/account")
 @RequiredArgsConstructor
 @Tag(name = "Users (Require Authentication)" , description = "Apis That is Responsible User Authenticated Operations.")
 public class AuthenticationController {
