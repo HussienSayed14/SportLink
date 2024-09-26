@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/sportsLink/api/v1/account")
+@RequestMapping("/sportsLink/api/v1/userAuth")
 @RequiredArgsConstructor
-@Tag(name = "Users (Require Authentication)" , description = "Apis That is Responsible User Authenticated Operations.")
+@Tag(name = "User Authentication" , description = "Apis That is Responsible User Authenticated Operations, does not need JWT token")
 public class AuthenticationController {
 }
