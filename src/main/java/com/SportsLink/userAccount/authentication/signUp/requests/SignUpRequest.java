@@ -1,7 +1,6 @@
 package com.SportsLink.userAccount.authentication.signUp.requests;
 
 import com.SportsLink.userAccount.authentication.RolesEnum;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -12,26 +11,23 @@ import lombok.Setter;
 @Setter
 public class SignUpRequest {
 
-    @NotNull(message = "Phone number cannot be null")
-    @Size(min = 8, max = 15, message = "Phone number must be between 8 and 15 characters")
-    @Pattern(regexp = "\\+?[0-9]+", message = "Phone number must contain only digits and may start with '+'")
+    @NotNull(message = "{phoneNumber.notNull}")
+    @Size(min = 8, max = 15, message = "{phoneNumber.size}")
+    @Pattern(regexp = "\\+?[0-9]+", message = "{phoneNumber.invalid}")
     private String phoneNumber;
 
-    @NotNull(message = "Password cannot be null")
-    @Size(min = 8, message = "Password must be at least 8 characters long")
-    @Pattern(
-            regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d@$!%*#?&]{8,}$",
-            message = "Password must contain at least one letter and one number, and be at least 8 characters long"
-    )
+    @NotNull(message = "{password.notNull}")
+    @Size(min = 8, message = "{password.size}")
     private String password;
 
-    @NotNull(message = "Full name cannot be null")
-    @Size(max = 100, message = "Full name must be less than or equal to 100 characters")
+    @NotNull(message = "{fullName.notNull}")
+    @Size(max = 100, message = "{fullName.size}")
     private String fullName;
 
-    @Size(max = 120, message = "Email must be less than or equal to 254 characters")
+    @Size(max = 120, message = "{email.size}")
     private String email;
 
-    @NotNull(message = "Role cannot be null")
+    @NotNull(message = "{role.notNull}")
     private RolesEnum role;
 }
+

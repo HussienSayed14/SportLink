@@ -54,7 +54,7 @@ public class GenericResponse {
     public void setUserAlreadyExist(){
         setResponseCode("1");
         setSuccess(false);
-        setMessage(messageSource.getMessage("register.fail.userAlreadyExist", null, LocaleContextHolder.getLocale()));
+        setMessage(messageSource.getMessage("register.fail.phoneAlreadyExist", null, LocaleContextHolder.getLocale()));
         setHttpStatus(HttpStatus.BAD_REQUEST);
     }
 

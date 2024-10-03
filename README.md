@@ -1,7 +1,7 @@
 ## User Account Tasks
 
 - [] Sign Up
-  - [] Password Strength
+  - [x] Password Strength
   - [] Password Hashing
   - [] User Verification
     - Verify by Phone number (Whatsapp Message) -> Send OTP
