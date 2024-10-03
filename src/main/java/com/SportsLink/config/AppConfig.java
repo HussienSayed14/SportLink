@@ -22,6 +22,7 @@ public class AppConfig{
     private final UserRepository userRepository;
     private final Environment environment;
 
+
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> userRepository.findOptionalUserByPhoneNumber(username)
