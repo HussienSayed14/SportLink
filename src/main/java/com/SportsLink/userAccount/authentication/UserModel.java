@@ -30,13 +30,15 @@ public class UserModel {
     @Column(name = "phone_number", length = 15, nullable = false)
     private String phone_number;
     @Email
-    @Column(name = "email", nullable = true)
+    @Column(name = "email", length = 120, nullable = true)
     private String email;
-    @NotNull
-    @Column(name = "name", nullable = false)
+    @NotNull(message = "Name cannot be null")
+    @Size(max = 100, message = "Name must be less than or equal to 100 characters")
+    @Column(name = "name",length = 100, nullable = false)
     private String name;
     @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(length = 40)
     private RolesEnum role;
     @NotNull
     @Column(name = "password_hash", nullable = false)
