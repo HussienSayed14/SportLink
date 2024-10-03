@@ -8,8 +8,12 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -23,7 +27,7 @@ import java.util.List;
         @Index(name = "idx_phone_number",columnList = "phone_number",unique = true)
 })
 
-public class UserModel {
+public class UserModel implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int user_id;
@@ -57,4 +61,38 @@ public class UserModel {
     @OneToMany(mappedBy = "user_id")
     private List<LoginAuditModel> loginAudits;
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.toString().toUpperCase()));
+    }
+
+    @Override
+    public String getPassword() {
+        return password_hash;
+    }
+
+    @Override
+    public String getUsername() {
+        return phone_number;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
