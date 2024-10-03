@@ -6,6 +6,7 @@ import com.SportsLink.userAccount.authentication.UserRepository;
 import com.SportsLink.userAccount.authentication.signUp.requests.SignUpRequest;
 import com.SportsLink.utils.DateTimeService;
 import com.SportsLink.utils.GenericResponse;
+import com.SportsLink.utils.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ public class SignUpService {
     private final UserRepository userRepository;
     private final DateTimeService dateTimeService;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final MessageService messageService;
     private static final Logger logger = LoggerFactory.getLogger(SignUpService.class);
 
 
@@ -28,8 +30,8 @@ public class SignUpService {
         try {
 
             UserModel user = userRepository.findUserByPhoneNumber(request.getPhoneNumber());
-            if(user == null){
-                response.setUserAlreadyExist();
+            if(user != null){
+                response.setBadRequest(messageService.getMessage("register.fail.phoneAlreadyExist"));
                 return ResponseEntity.status(response.getHttpStatus()).body(response);
             }
 
@@ -43,10 +45,12 @@ public class SignUpService {
                     .password_hash(passwordEncoder.encode(request.getPassword()))
                     .build();
             userRepository.save(user);
+            response.setSuccessful(messageService.getMessage("register.success"));
         }catch (Exception e){
-            response.setSystemError();
+            response.setServerErrorError(messageService.getMessage("unexpected.error"));
             e.printStackTrace();
-            logger.error("An Error happened while creating user: "+ request.getPhoneNumber());
+            logger.error("An Error happened while creating user: "+ request.getPhoneNumber() + "\n" +
+                    "Error Message: " + e.getMessage());
             logger.error(e.getMessage());
         }
         return ResponseEntity.status(response.getHttpStatus()).body(response);

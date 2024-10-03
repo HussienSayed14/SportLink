@@ -2,7 +2,7 @@
 
 - [] Sign Up
   - [x] Password Strength
-  - [] Password Hashing
+  - [x] Password Hashing
   - [] User Verification
     - Verify by Phone number (Whatsapp Message) -> Send OTP
 - [] Sign In

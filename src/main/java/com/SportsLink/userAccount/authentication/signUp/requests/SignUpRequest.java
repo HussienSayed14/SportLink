@@ -18,6 +18,10 @@ public class SignUpRequest {
 
     @NotNull(message = "{password.notNull}")
     @Size(min = 8, message = "{password.size}")
+    @Pattern(
+            regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d@$!%*#?&]{8,}$",
+            message ="{password.size}"
+    )
     private String password;
 
     @NotNull(message = "{fullName.notNull}")
