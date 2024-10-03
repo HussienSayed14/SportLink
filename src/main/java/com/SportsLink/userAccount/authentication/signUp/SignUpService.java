@@ -41,6 +41,7 @@ public class SignUpService {
                     .name(request.getFullName())
                     .role(request.getRole())
                     .blocked_until(null)
+                     .is_activated(true)
                     .created_at(dateTimeService.getCurrentTimestamp())
                     .password_hash(passwordEncoder.encode(request.getPassword()))
                     .build();

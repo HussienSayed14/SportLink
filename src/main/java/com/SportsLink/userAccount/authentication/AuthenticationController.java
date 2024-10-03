@@ -4,15 +4,14 @@ package com.SportsLink.userAccount.authentication;
 import com.SportsLink.userAccount.authentication.signUp.SignUpService;
 import com.SportsLink.userAccount.authentication.signUp.requests.SignUpRequest;
 import com.SportsLink.utils.GenericResponse;
+import com.SportsLink.utils.MessageService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/sportsLink/api/v1/userAuth")
@@ -21,8 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
 
     private final SignUpService signUpService;
+    private final MessageService messageService;
 
-    @PostMapping("/signUp")
+    @PostMapping(value = "/signUp", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<GenericResponse> signUp(@Valid @RequestBody SignUpRequest request, BindingResult bindingResult){
          if (bindingResult.hasErrors()) {
             String errorMessage = bindingResult.getAllErrors().get(0).getDefaultMessage();
@@ -30,5 +30,11 @@ public class AuthenticationController {
         }
          return signUpService.signUp(request);
     }
+
+    @GetMapping()
+    String test(){
+        return messageService.getMessage("unexpected.error");
+    }
+
 
 }
