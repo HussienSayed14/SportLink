@@ -1,6 +1,8 @@
 package com.SportsLink.userAccount.authentication;
 
 
+import com.SportsLink.loginAudit.LoginAuditModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -8,6 +10,7 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 
 @Entity
@@ -17,8 +20,7 @@ import java.sql.Timestamp;
 @Setter
 @Builder
 @Table(name = "users", indexes = {
-        @Index(name = "idx_phone_number",columnList = "phone_number",unique = true),
-        @Index(name= "idx_last_login",columnList = "last_login")
+        @Index(name = "idx_phone_number",columnList = "phone_number",unique = true)
 })
 
 public class UserModel {
@@ -50,7 +52,9 @@ public class UserModel {
     private boolean is_verified = false;
     private boolean is_activated = true;
     private Timestamp created_at;
-    @Column(name = "last_login")
     private Timestamp last_login;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user_id")
+    private List<LoginAuditModel> loginAudits;
 
 }
