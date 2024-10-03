@@ -52,11 +52,11 @@ public class UserModel implements UserDetails {
     private int failed_attempts = 0;
     private boolean is_blocked = false;
     @Column(name = "blocked_until", nullable = true)
-    private Timestamp blocked_until;
+    private Timestamp blocked_until = null;
     private boolean is_verified = false;
     private boolean is_activated = true;
     private Timestamp created_at;
-    private Timestamp last_login;
+    private Timestamp last_login = null;
     @JsonIgnore
     @OneToMany(mappedBy = "user_id")
     private List<LoginAuditModel> loginAudits;

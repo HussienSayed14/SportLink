@@ -9,4 +9,7 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 
     @Query(value = "SELECT u FROM UserModel u WHERE u.phone_number = :phone_number")
     Optional<UserModel> findOptionalUserByPhoneNumber(String phone_number);
+
+    @Query(value = "SELECT u FROM UserModel u WHERE u.phone_number = :phone_number")
+    UserModel findUserByPhoneNumber(String phone_number);
 }
