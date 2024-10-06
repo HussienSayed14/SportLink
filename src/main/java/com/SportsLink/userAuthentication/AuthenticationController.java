@@ -39,7 +39,11 @@ public class AuthenticationController {
             return ResponseEntity.badRequest().body(new GenericResponse(errorMessage));
         }
         return verificationService.verifyUser(request);
+    }
 
+    @PostMapping("/resendCode")
+    ResponseEntity<GenericResponse> resendVerificationCode(@PathVariable int userId){
+        return verificationService.resendVerificationCode(userId);
     }
 
 

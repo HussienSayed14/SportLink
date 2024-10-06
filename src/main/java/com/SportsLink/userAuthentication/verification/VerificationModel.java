@@ -33,6 +33,6 @@ public class VerificationModel {
     private Timestamp expires_at;
     private boolean is_verified;
     private Timestamp created_at;
-    private Timestamp last_created;
+    private Timestamp resend_at;
     private int attempt_count;
 }

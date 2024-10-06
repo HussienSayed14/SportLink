@@ -19,4 +19,8 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
     @Modifying
     @Query(value = "UPDATE UserModel u SET u.is_verified= true WHERE u.user_id =:userId" )
     void verifyUser(int userId);
+
+
+    @Query(value = "SELECT u.phone_number FROM UserModel WHERE u.user_id =:userId")
+    String getUserPhoneById(int userId);
 }

@@ -4,6 +4,7 @@ package com.SportsLink.userAuthentication.verification;
 import com.SportsLink.userAuthentication.UserModel;
 import com.SportsLink.userAuthentication.UserRepository;
 import com.SportsLink.userAuthentication.verification.requests.VerifyUserRequest;
+import com.SportsLink.userAuthentication.verification.responses.ResendCodeResponse;
 import com.SportsLink.utils.DateTimeService;
 import com.SportsLink.utils.GenericResponse;
 import com.SportsLink.utils.MessageService;
@@ -15,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
+import java.sql.Timestamp;
+
 
 @Service
 @RequiredArgsConstructor
@@ -46,7 +49,7 @@ public class VerificationService {
                     .is_verified(false)
                     .attempt_count(0)
                     .created_at(dateTimeService.getCurrentTimestamp())
-                    .last_created(dateTimeService.getCurrentTimestamp())
+                    .resend_at(dateTimeService.addMinutesToNow(3))
                     .expires_at(dateTimeService.addMinutesToNow(10))
                     .build();
             verificationRepository.save(userVerification);
@@ -93,7 +96,7 @@ public class VerificationService {
             if(isCodeCorrect(verificationRecord, request.getCode(), response)
                     && isCodeValid(verificationRecord,response) ){
                 userRepository.verifyUser(request.getUserId());
-                response.setSuccessful("generic.success");
+                response.setSuccessful(messageService.getMessage("generic.success"));
             }
 
         }catch (Exception e){
@@ -118,8 +121,73 @@ public class VerificationService {
         if(verificationRecord.getVerification_code().equals(enteredCode)){
             return true;
         }
+        verificationRepository.incrementAttemptById(verificationRecord.getVerification_id());
         response.setUnauthorizedRequest(messageService.getMessage("verificationCode.wrong"));
         return false;
+    }
+
+    public ResponseEntity<GenericResponse> resendVerificationCode(int userId){
+        ResendCodeResponse response = new ResendCodeResponse();
+        try{
+            VerificationModel verificationRecord =
+                    verificationRepository.getVerificationRecordByUserId(userId);
+
+            if(verificationRecord == null){
+                response.setForbiddenRequest(messageService.getMessage("user.doesNotExist"));
+                return ResponseEntity.status(response.getHttpStatus()).body(response);
+            }
+
+            if(canGetNewCode(verificationRecord.getResend_at(),response)){
+
+                String userPhone = userRepository.getUserPhoneById(userId);
+                String verificationCode = generateVerificationCode(6);
+
+                verificationRecord.setVerification_code(verificationCode);
+                verificationRecord.setCreated_at(dateTimeService.getCurrentTimestamp());
+                resetResendTime(verificationRecord);
+                verificationRepository.save(verificationRecord);
+
+                StringBuilder message = new StringBuilder();
+                message.append(messageService.getMessage("user.verificationMessage"))
+                        .append("\n")
+                        .append(verificationCode);
+
+                smsService.sendSmsMessage(userPhone, String.valueOf(message));
+                response.setSuccessful(messageService.getMessage("generic.success"));
+            }
+
+        }catch (Exception e){
+            response.setServerError(messageService.getMessage("unexpected.error"));
+            logger.error("An Error happened while resending code to user: "+ userId + "\n" +
+                    "Error Message: " + e.getMessage());
+        }
+        return ResponseEntity.status(response.getHttpStatus()).body(response);
+    }
+
+    private boolean canGetNewCode(Timestamp resendAt,ResendCodeResponse response){
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+
+        if (now.after(resendAt) || now.equals(resendAt)) {
+            return true;
+        } else {
+            // User cannot resend yet; calculate time remaining
+            long timeRemaining = resendAt.getTime() - now.getTime(); // in milliseconds
+            response.setTimeRemaining(timeRemaining);
+            return false;
+        }
+    }
+
+    private void resetResendTime(VerificationModel verificationRecord){
+        if(verificationRecord.getAttempt_count() <= 6){
+            verificationRecord.setResend_at(dateTimeService.addMinutesToNow(3));
+        }else if(verificationRecord.getAttempt_count() > 6 && verificationRecord.getAttempt_count() <= 10){
+            verificationRecord.setResend_at(dateTimeService.addMinutesToNow(5));
+        }else if (verificationRecord.getAttempt_count() > 10 && verificationRecord.getAttempt_count() <= 15){
+            verificationRecord.setResend_at(dateTimeService.addMinutesToNow(20));
+        }else{
+            verificationRecord.setResend_at(dateTimeService.addMinutesToNow(60));
+        }
+
     }
 
 
