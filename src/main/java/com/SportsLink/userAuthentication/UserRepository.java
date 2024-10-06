@@ -21,6 +21,6 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
     void verifyUser(int userId);
 
 
-    @Query(value = "SELECT u.phone_number FROM UserModel WHERE u.user_id =:userId")
+    @Query(value = "SELECT u.phone_number FROM UserModel u WHERE u.user_id =:userId")
     String getUserPhoneById(int userId);
 }

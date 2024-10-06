@@ -113,7 +113,7 @@ public class VerificationService {
             return true;
         }
         response.setUnauthorizedRequest(messageService.getMessage("verificationCode.expired"));
-        //Call Resend Message
+        resendVerificationCode(verificationRecord.getUser_id().getUser_id());
         return false;
     }
 
@@ -141,6 +141,7 @@ public class VerificationService {
 
                 String userPhone = userRepository.getUserPhoneById(userId);
                 String verificationCode = generateVerificationCode(6);
+                System.out.println("Verification Code: " + verificationCode);
 
                 verificationRecord.setVerification_code(verificationCode);
                 verificationRecord.setCreated_at(dateTimeService.getCurrentTimestamp());
