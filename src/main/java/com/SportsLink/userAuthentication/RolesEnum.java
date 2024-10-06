@@ -1,4 +1,4 @@
-package com.SportsLink.userAccount.authentication;
+package com.SportsLink.userAuthentication;
 
 public enum RolesEnum {
     USER,

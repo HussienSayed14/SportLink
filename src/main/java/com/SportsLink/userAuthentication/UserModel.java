@@ -1,7 +1,8 @@
-package com.SportsLink.userAccount.authentication;
+package com.SportsLink.userAuthentication;
 
 
 import com.SportsLink.loginAudit.LoginAuditModel;
+import com.SportsLink.userAuthentication.verification.VerificationModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -58,8 +59,14 @@ public class UserModel implements UserDetails {
     private Timestamp created_at;
     private Timestamp last_login = null;
     @JsonIgnore
-    @OneToMany(mappedBy = "user_id")
+    @OneToMany(mappedBy = "user_id",fetch = FetchType.LAZY)
     private List<LoginAuditModel> loginAudits;
+    @JsonIgnore
+    @OneToOne(mappedBy = "user_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    VerificationModel userVerification;
+
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

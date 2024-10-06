@@ -1,8 +1,8 @@
-package com.SportsLink.userAccount.authentication;
+package com.SportsLink.userAuthentication;
 
 
-import com.SportsLink.userAccount.authentication.signUp.SignUpService;
-import com.SportsLink.userAccount.authentication.signUp.requests.SignUpRequest;
+import com.SportsLink.userAuthentication.signUp.SignUpService;
+import com.SportsLink.userAuthentication.signUp.requests.SignUpRequest;
 import com.SportsLink.utils.GenericResponse;
 import com.SportsLink.utils.MessageService;
 import io.swagger.v3.oas.annotations.tags.Tag;

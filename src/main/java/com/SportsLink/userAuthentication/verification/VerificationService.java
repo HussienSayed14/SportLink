@@ -1,0 +1,75 @@
+package com.SportsLink.userAuthentication.verification;
+
+
+import com.SportsLink.userAuthentication.UserModel;
+import com.SportsLink.utils.DateTimeService;
+import com.SportsLink.utils.MessageService;
+import com.SportsLink.utils.SmsService;
+import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.security.SecureRandom;
+
+@Service
+@RequiredArgsConstructor
+public class VerificationService {
+    private final VerificationRepository verificationRepository;
+    private final DateTimeService dateTimeService;
+    private final SmsService smsService;
+    private final MessageService messageService;
+    private static final SecureRandom random = new SecureRandom();
+    private static final Logger logger = LoggerFactory.getLogger(VerificationService.class);
+
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            + "abcdefghijklmnopqrstuvwxyz"
+            + "0123456789"
+            + "*-_";
+
+
+    public boolean createAndSendVerificationCode(UserModel user,String channel){
+
+        try {
+            String verificationCode = generateVerificationCode(6);
+
+            VerificationModel userVerification = VerificationModel.builder()
+                    .verification_code(verificationCode)
+                    .user_id(user)
+                    .verification_channel(channel)
+                    .is_verified(false)
+                    .attempt_count(0)
+                    .created_at(dateTimeService.getCurrentTimestamp())
+                    .last_created(dateTimeService.getCurrentTimestamp())
+                    .expires_at(dateTimeService.addMinutesToNow(10))
+                    .build();
+            verificationRepository.save(userVerification);
+
+            StringBuilder message = new StringBuilder();
+            message.append(messageService.getMessage("user.verificationMessage"))
+                    .append("\n")
+                    .append(verificationCode);
+
+            smsService.sendSmsMessage(user.getPhone_number(), String.valueOf(message));
+            return  true;
+
+        }catch (Exception e){
+            logger.error("An Error happened while verifying user: "+ user.getPhone_number() + "\n" +
+                    "Error Message: " + e.getMessage());
+            return false;
+
+        }
+
+    }
+
+    private static String generateVerificationCode(int length) {
+        StringBuilder verificationCode = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            // Generate a random index to pick a character from CHARACTERS
+            int index = random.nextInt(CHARACTERS.length());
+            // Append the character to the verification code
+            verificationCode.append(CHARACTERS.charAt(index));
+        }
+        return verificationCode.toString();
+    }
+}

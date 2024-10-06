@@ -1,9 +1,11 @@
-package com.SportsLink.userAccount.authentication.signUp;
+package com.SportsLink.userAuthentication.signUp;
 
 
-import com.SportsLink.userAccount.authentication.UserModel;
-import com.SportsLink.userAccount.authentication.UserRepository;
-import com.SportsLink.userAccount.authentication.signUp.requests.SignUpRequest;
+import com.SportsLink.userAuthentication.UserModel;
+import com.SportsLink.userAuthentication.UserRepository;
+import com.SportsLink.userAuthentication.signUp.requests.SignUpRequest;
+import com.SportsLink.userAuthentication.signUp.responses.SignUpResponse;
+import com.SportsLink.userAuthentication.verification.VerificationService;
 import com.SportsLink.utils.DateTimeService;
 import com.SportsLink.utils.GenericResponse;
 import com.SportsLink.utils.MessageService;
@@ -22,11 +24,12 @@ public class SignUpService {
     private final DateTimeService dateTimeService;
     private final BCryptPasswordEncoder passwordEncoder;
     private final MessageService messageService;
+    private final VerificationService verificationService;
     private static final Logger logger = LoggerFactory.getLogger(SignUpService.class);
 
 
     public ResponseEntity<GenericResponse> signUp(SignUpRequest request) {
-        GenericResponse response = new GenericResponse();
+        SignUpResponse response = new SignUpResponse();
         try {
 
             UserModel user = userRepository.findUserByPhoneNumber(request.getPhoneNumber());
@@ -45,14 +48,18 @@ public class SignUpService {
                     .created_at(dateTimeService.getCurrentTimestamp())
                     .password_hash(passwordEncoder.encode(request.getPassword()))
                     .build();
-            userRepository.save(user);
+
+            UserModel createdUser = userRepository.save(user);
+
+            verificationService.createAndSendVerificationCode(createdUser,"SMS");
+            response.setUserId(createdUser.getUser_id());
             response.setSuccessful(messageService.getMessage("register.success"));
         }catch (Exception e){
             response.setServerErrorError(messageService.getMessage("unexpected.error"));
             e.printStackTrace();
             logger.error("An Error happened while creating user: "+ request.getPhoneNumber() + "\n" +
                     "Error Message: " + e.getMessage());
-            logger.error(e.getMessage());
+
         }
         return ResponseEntity.status(response.getHttpStatus()).body(response);
     }

@@ -1,6 +1,6 @@
 package com.SportsLink.loginAudit;
 
-import com.SportsLink.userAccount.authentication.UserModel;
+import com.SportsLink.userAuthentication.UserModel;
 import jakarta.persistence.*;
 import lombok.*;
 

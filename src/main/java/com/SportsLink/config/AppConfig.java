@@ -1,7 +1,7 @@
 package com.SportsLink.config;
 
 
-import com.SportsLink.userAccount.authentication.UserRepository;
+import com.SportsLink.userAuthentication.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

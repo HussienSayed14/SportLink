@@ -1,6 +1,6 @@
-package com.SportsLink.userAccount.authentication.signUp.requests;
+package com.SportsLink.userAuthentication.signUp.requests;
 
-import com.SportsLink.userAccount.authentication.RolesEnum;
+import com.SportsLink.userAuthentication.RolesEnum;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
