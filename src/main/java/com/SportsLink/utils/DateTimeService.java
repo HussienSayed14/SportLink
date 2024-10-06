@@ -36,4 +36,29 @@ public class DateTimeService {
     public Time getCurrentTime(){
         return new Time(System.currentTimeMillis());
     }
+
+    /**
+     * Checks if the request is still valid based on the creationDate and expireDate.
+     *
+     * @param creationDate the timestamp when the request was created
+     * @param expireDate   the timestamp when the request expires
+     * @return true if the request is valid, false if expired or invalid
+     */
+    public boolean isRequestNonExpired(Timestamp creationDate, Timestamp expireDate) {
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+
+        // Check if creationDate is after expireDate (invalid data)
+        if (creationDate.after(expireDate)) {
+            
+            return false;
+        }
+
+        // Check if current time is after expireDate (request expired)
+        if (now.after(expireDate)) {
+            return false;
+        }
+
+        // The request is valid
+        return true;
+    }
 }

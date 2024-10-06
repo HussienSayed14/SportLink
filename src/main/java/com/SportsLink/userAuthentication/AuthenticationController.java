@@ -3,8 +3,9 @@ package com.SportsLink.userAuthentication;
 
 import com.SportsLink.userAuthentication.signUp.SignUpService;
 import com.SportsLink.userAuthentication.signUp.requests.SignUpRequest;
+import com.SportsLink.userAuthentication.verification.VerificationService;
+import com.SportsLink.userAuthentication.verification.requests.VerifyUserRequest;
 import com.SportsLink.utils.GenericResponse;
-import com.SportsLink.utils.MessageService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
 
     private final SignUpService signUpService;
-    private final MessageService messageService;
+    private final VerificationService verificationService;
 
     @PostMapping(value = "/signUp", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<GenericResponse> signUp(@Valid @RequestBody SignUpRequest request, BindingResult bindingResult){
@@ -29,6 +30,16 @@ public class AuthenticationController {
             return ResponseEntity.badRequest().body(new GenericResponse(errorMessage));
         }
          return signUpService.signUp(request);
+    }
+
+    @PostMapping(value = "/verifyUser")
+    ResponseEntity<GenericResponse> verifyUser(@Valid @RequestBody VerifyUserRequest request, BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            String errorMessage = bindingResult.getAllErrors().get(0).getDefaultMessage();
+            return ResponseEntity.badRequest().body(new GenericResponse(errorMessage));
+        }
+        return verificationService.verifyUser(request);
+
     }
 
 

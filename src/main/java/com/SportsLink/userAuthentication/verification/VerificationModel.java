@@ -28,7 +28,7 @@ public class VerificationModel {
     private UserModel user_id;
     @Column(name = "verification_code", length = 10, nullable = false)
     private String verification_code;
-    @Column(name = "verification_channel", length = 10, nullable = true)
+    @Column(name = "verification_channel", length = 10)
     private String verification_channel;
     private Timestamp expires_at;
     private boolean is_verified;

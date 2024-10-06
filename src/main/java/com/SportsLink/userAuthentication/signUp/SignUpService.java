@@ -55,7 +55,7 @@ public class SignUpService {
             response.setUserId(createdUser.getUser_id());
             response.setSuccessful(messageService.getMessage("register.success"));
         }catch (Exception e){
-            response.setServerErrorError(messageService.getMessage("unexpected.error"));
+            response.setServerError(messageService.getMessage("unexpected.error"));
             e.printStackTrace();
             logger.error("An Error happened while creating user: "+ request.getPhoneNumber() + "\n" +
                     "Error Message: " + e.getMessage());

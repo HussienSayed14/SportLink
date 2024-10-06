@@ -25,7 +25,7 @@ public class GenericResponse {
         setHttpStatus(HttpStatus.BAD_REQUEST);
     }
 
-    public void setServerErrorError(String message){
+    public void setServerError(String message){
         setResponseCode("-1");
         setSuccess(false);
         setMessage(message);
@@ -44,5 +44,19 @@ public class GenericResponse {
         setSuccess(false);
         setMessage(message);
         setHttpStatus(HttpStatus.BAD_REQUEST);
+    }
+
+    public void setForbiddenRequest(String message){
+        setResponseCode("-3");
+        setSuccess(false);
+        setMessage(message);
+        setHttpStatus(HttpStatus.FORBIDDEN);
+    }
+
+    public void setUnauthorizedRequest(String message){
+        setResponseCode("-4");
+        setSuccess(false);
+        setMessage(message);
+        setHttpStatus(HttpStatus.UNAUTHORIZED);
     }
 }
