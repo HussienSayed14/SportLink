@@ -90,9 +90,11 @@ public class VerificationService {
                 return ResponseEntity.status(response.getHttpStatus()).body(response);
             }
 
-
-
-
+            if(isCodeCorrect(verificationRecord, request.getCode(), response)
+                    && isCodeValid(verificationRecord,response) ){
+                userRepository.verifyUser(request.getUserId());
+                response.setSuccessful("generic.success");
+            }
 
         }catch (Exception e){
             response.setServerError(messageService.getMessage("unexpected.error"));
