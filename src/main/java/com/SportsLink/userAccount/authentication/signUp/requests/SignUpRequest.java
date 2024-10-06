@@ -12,8 +12,8 @@ import lombok.Setter;
 public class SignUpRequest {
 
     @NotNull(message = "{phoneNumber.notNull}")
-    @Size(min = 8, max = 15, message = "{phoneNumber.size}")
-    @Pattern(regexp = "\\+?[0-9]+", message = "{phoneNumber.invalid}")
+    @Size(min = 10, max = 11, message = "{phoneNumber.size}")
+    @Pattern(regexp =  "^[01][0-9]*$", message = "{phoneNumber.invalid}")
     private String phoneNumber;
 
     @NotNull(message = "{password.notNull}")
@@ -33,5 +33,8 @@ public class SignUpRequest {
 
     @NotNull(message = "{role.notNull}")
     private RolesEnum role;
+
+    @NotNull
+    private String countryCode;
 }
 

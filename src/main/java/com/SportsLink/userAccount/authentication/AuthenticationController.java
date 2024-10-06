@@ -31,10 +31,6 @@ public class AuthenticationController {
          return signUpService.signUp(request);
     }
 
-    @GetMapping()
-    String test(){
-        return messageService.getMessage("unexpected.error");
-    }
 
 
 }

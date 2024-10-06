@@ -36,7 +36,7 @@ public class SignUpService {
             }
 
              user = UserModel.builder()
-                    .phone_number(request.getPhoneNumber())
+                    .phone_number(formatPhoneNumber(request.getCountryCode(),request.getPhoneNumber()))
                     .email(request.getEmail())
                     .name(request.getFullName())
                     .role(request.getRole())
@@ -55,5 +55,14 @@ public class SignUpService {
             logger.error(e.getMessage());
         }
         return ResponseEntity.status(response.getHttpStatus()).body(response);
+    }
+
+    private String formatPhoneNumber(String countryCode, String phoneNumber){
+        countryCode = countryCode.trim();
+        phoneNumber = phoneNumber.trim();
+        if (phoneNumber.startsWith("0")) {
+            phoneNumber = phoneNumber.substring(1);
+        }
+        return countryCode + phoneNumber;
     }
 }
