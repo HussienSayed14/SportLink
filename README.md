@@ -1,9 +1,9 @@
 ## User Account Tasks
 
-- [] Sign Up
+- [x] Sign Up
   - [x] Password Strength
   - [x] Password Hashing
-  - [] User Verification
+  - [x] User Verification
     - Verify by Phone number (Whatsapp Message) -> Send OTP
 - [] Sign In
   - [] Lock Account for 1 Hour After 6 Failed Attempt
