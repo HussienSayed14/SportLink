@@ -21,6 +21,7 @@ public class SmsService {
         }catch (Exception e){
             logger.error("An Error happened while sending sms to: "+ phoneNumber + "\n" +
                     "Error Message: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }

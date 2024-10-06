@@ -41,7 +41,7 @@ public class AuthenticationController {
         return verificationService.verifyUser(request);
     }
 
-    @PostMapping("/resendCode")
+    @PostMapping("/resendCode/{userId}")
     ResponseEntity<GenericResponse> resendVerificationCode(@PathVariable int userId){
         return verificationService.resendVerificationCode(userId);
     }

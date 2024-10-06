@@ -31,7 +31,6 @@ public class VerificationModel {
     @Column(name = "verification_channel", length = 10)
     private String verification_channel;
     private Timestamp expires_at;
-    private boolean is_verified;
     private Timestamp created_at;
     private Timestamp resend_at;
     private int attempt_count;

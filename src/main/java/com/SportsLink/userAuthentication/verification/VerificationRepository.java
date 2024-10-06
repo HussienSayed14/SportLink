@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface VerificationRepository extends JpaRepository<VerificationModel,Integer> {
 
-    @Query("SELECT v FROM VerificationModel v WHERE v.user_id =:userId")
+    @Query(value = "SELECT * FROM user_verification  WHERE user_id =:userId",nativeQuery = true)
     VerificationModel getVerificationRecordByUserId(int userId);
 
     @Transactional

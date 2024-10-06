@@ -34,7 +34,7 @@ public class SignUpRequest {
     @NotNull(message = "{role.notNull}")
     private RolesEnum role;
 
-    @NotNull
+    @NotNull(message = "{countryCode.notNull}")
     private String countryCode;
 }
 

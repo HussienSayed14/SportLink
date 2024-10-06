@@ -46,7 +46,6 @@ public class VerificationService {
                     .verification_code(verificationCode)
                     .user_id(user)
                     .verification_channel(channel)
-                    .is_verified(false)
                     .attempt_count(0)
                     .created_at(dateTimeService.getCurrentTimestamp())
                     .resend_at(dateTimeService.addMinutesToNow(3))
@@ -65,6 +64,7 @@ public class VerificationService {
         }catch (Exception e){
             logger.error("An Error happened while creating verification code for: "+ user.getPhone_number() + "\n" +
                     "Error Message: " + e.getMessage());
+            e.printStackTrace();
             return false;
 
         }
@@ -103,6 +103,7 @@ public class VerificationService {
             response.setServerError(messageService.getMessage("unexpected.error"));
             logger.error("An Error happened while verifying user: "+ request.getUserId() + "\n" +
                     "Error Message: " + e.getMessage());
+            e.printStackTrace();
 
         }
         return ResponseEntity.status(response.getHttpStatus()).body(response);
@@ -161,6 +162,7 @@ public class VerificationService {
             response.setServerError(messageService.getMessage("unexpected.error"));
             logger.error("An Error happened while resending code to user: "+ userId + "\n" +
                     "Error Message: " + e.getMessage());
+            e.printStackTrace();
         }
         return ResponseEntity.status(response.getHttpStatus()).body(response);
     }
@@ -173,6 +175,7 @@ public class VerificationService {
         } else {
             // User cannot resend yet; calculate time remaining
             long timeRemaining = resendAt.getTime() - now.getTime(); // in milliseconds
+            response.setForbiddenRequest(messageService.getMessage("verificationCode.wait"));
             response.setTimeRemaining(timeRemaining);
             return false;
         }
