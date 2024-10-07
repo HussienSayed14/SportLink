@@ -17,8 +17,8 @@ public class SmsService {
     @Async
     public void sendSmsMessage(String phoneNumber, String message){
         try {
-            twilioWhatsAppService.sendWhatsAppMessage(phoneNumber,message);
-            logger.info("An sms is sent to: " + phoneNumber);
+            //twilioWhatsAppService.sendWhatsAppMessage(phoneNumber,message);
+            logger.info("An sms is sent to: " + phoneNumber + ": " + message);
 
         }catch (Exception e){
             logger.error("An Error happened while sending sms to: "+ phoneNumber + "\n" +

@@ -1,6 +1,8 @@
 package com.SportsLink.userAuthentication;
 
 
+import com.SportsLink.userAuthentication.login.LoginService;
+import com.SportsLink.userAuthentication.login.requests.LoginRequest;
 import com.SportsLink.userAuthentication.signUp.SignUpService;
 import com.SportsLink.userAuthentication.signUp.requests.SignUpRequest;
 import com.SportsLink.userAuthentication.verification.VerificationService;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
 
     private final SignUpService signUpService;
+    private final LoginService loginService;
     private final VerificationService verificationService;
 
     @PostMapping(value = "/signUp", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -39,6 +42,15 @@ public class AuthenticationController {
             return ResponseEntity.badRequest().body(new GenericResponse(errorMessage));
         }
         return verificationService.verifyUser(request);
+    }
+
+    @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<GenericResponse> login(@Valid @RequestBody LoginRequest request, BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            String errorMessage = bindingResult.getAllErrors().get(0).getDefaultMessage();
+            return ResponseEntity.badRequest().body(new GenericResponse(errorMessage));
+        }
+        return loginService.login(request);
     }
 
     @PostMapping("/resendCode/{userId}")
