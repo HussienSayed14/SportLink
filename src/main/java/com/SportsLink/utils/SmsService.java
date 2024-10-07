@@ -1,5 +1,6 @@
 package com.SportsLink.utils;
 
+import com.SportsLink.utils.twilio.TwilioWhatsAppService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,12 +11,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SmsService {
     private static final Logger logger = LoggerFactory.getLogger(SmsService.class);
+    private final TwilioWhatsAppService twilioWhatsAppService;
 
 
     @Async
     public void sendSmsMessage(String phoneNumber, String message){
         try {
-            // To be implemented using Twilio
+            twilioWhatsAppService.sendWhatsAppMessage(phoneNumber,message);
             logger.info("An sms is sent to: " + phoneNumber);
 
         }catch (Exception e){
