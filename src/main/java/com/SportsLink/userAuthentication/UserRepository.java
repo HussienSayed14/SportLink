@@ -15,6 +15,10 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
     @Query(value = "SELECT u FROM UserModel u WHERE u.phone_number = :phone_number")
     UserModel findUserByPhoneNumber(String phone_number);
 
+    @Query(value = "SELECT u FROM UserModel u WHERE u.phone_number = :phone_number AND u.is_verified = true")
+    UserModel findVerifiedUserByPhoneNumber(String phone_number);
+
+
     @Transactional
     @Modifying
     @Query(value = "UPDATE UserModel u SET u.is_verified= true WHERE u.user_id =:userId" )

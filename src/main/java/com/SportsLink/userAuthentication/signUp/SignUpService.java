@@ -32,7 +32,7 @@ public class SignUpService {
         SignUpResponse response = new SignUpResponse();
         try {
 
-            UserModel user = userRepository.findUserByPhoneNumber(request.getPhoneNumber());
+            UserModel user = userRepository.findVerifiedUserByPhoneNumber(request.getPhoneNumber());
             if(user != null){
                 response.setBadRequest(messageService.getMessage("register.fail.phoneAlreadyExist"));
                 return ResponseEntity.status(response.getHttpStatus()).body(response);
