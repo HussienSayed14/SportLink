@@ -61,4 +61,15 @@ public class DateTimeService {
         // The request is valid
         return true;
     }
+
+    public boolean isRequestBlocked(Timestamp blockDate) {
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        // Check if current time is after Block date (request not blocked)
+        if (now.after(blockDate)) {
+            return false;
+        }
+
+        // The request is blocked
+        return true;
+    }
 }

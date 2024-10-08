@@ -1,7 +1,7 @@
 package com.SportsLink.utils;
 
+import com.SportsLink.smsLimit.SmsDailyLimitService;
 import com.SportsLink.utils.twilio.TwilioWhatsAppService;
-
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,13 +15,23 @@ public class SmsService {
     private final TwilioWhatsAppService twilioWhatsAppService;
 
 
-
     @Async
-    public void sendSmsMessage(String phoneNumber, String message){
+    public void sendWhatsAppVerificationMessage(String phoneNumber, String verificationCode, String templateId){
         try {
-            twilioWhatsAppService.sendWhatsAppMessage(phoneNumber,message);
+            twilioWhatsAppService.sendWhatsAppVerificationMessage(phoneNumber,verificationCode,templateId);
+            logger.info("A verification code is sent to: " + phoneNumber + ": " + verificationCode);
 
-            logger.info("An sms is sent to: " + phoneNumber);
+        }catch (Exception e){
+            logger.error("An Error happened while sending sms to: "+ phoneNumber + "\n" +
+                    "Error Message: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public void sendWhatsAppForgotPasswordMessage(String phoneNumber, String url, String templateId){
+        try {
+            twilioWhatsAppService.sendWhatsAppForgotPasswordMessage(phoneNumber,url,templateId);
+            logger.info("A Forgot Password url is sent to: " + phoneNumber + ": " + url);
 
         }catch (Exception e){
             logger.error("An Error happened while sending sms to: "+ phoneNumber + "\n" +

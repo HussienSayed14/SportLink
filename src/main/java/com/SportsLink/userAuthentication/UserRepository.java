@@ -15,6 +15,10 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
     @Query(value = "SELECT u FROM UserModel u WHERE u.phone_number = :phone_number")
     UserModel findUserByPhoneNumber(String phone_number);
 
+    @Query(value = "SELECT u FROM UserModel u WHERE u.phone_number = :phone_number AND u.is_verified = true")
+    UserModel findVerifiedUserByPhoneNumber(String phone_number);
+
+
     @Transactional
     @Modifying
     @Query(value = "UPDATE UserModel u SET u.is_verified= true WHERE u.user_id =:userId" )
@@ -23,4 +27,7 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 
     @Query(value = "SELECT u.phone_number FROM UserModel u WHERE u.user_id =:userId")
     String getUserPhoneById(int userId);
+
+    @Query(value = "SELECT u FROM UserModel u WHERE u.user_id =:userId")
+    UserModel getUserById(int userId);
 }

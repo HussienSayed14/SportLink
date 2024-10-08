@@ -26,12 +26,14 @@ public class LoginAuditModel {
     @JoinColumn(name = "user_id")
     private UserModel user_id;
     private String session_id;
-    @Column(length = 40)
+    @Column(length = 15)
     private String  ip_address;
     @Column(nullable = false)
     private Date login_date;
     private Time login_time;
+    private Timestamp login_timestamp;
     private Timestamp logout_time;
     private boolean is_success;
+    @Column(length = 250)
     private String description;
 }

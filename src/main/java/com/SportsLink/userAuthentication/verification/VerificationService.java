@@ -1,6 +1,8 @@
 package com.SportsLink.userAuthentication.verification;
 
 
+import com.SportsLink.smsLimit.LimitTypeEnum;
+import com.SportsLink.smsLimit.SmsDailyLimitService;
 import com.SportsLink.userAuthentication.UserModel;
 import com.SportsLink.userAuthentication.UserRepository;
 import com.SportsLink.userAuthentication.verification.requests.VerifyUserRequest;
@@ -27,6 +29,7 @@ public class VerificationService {
     private final SmsService smsService;
     private final UserRepository userRepository;
     private final MessageService messageService;
+    private final SmsDailyLimitService smsDailyLimitService;
     private static final SecureRandom random = new SecureRandom();
     private static final Logger logger = LoggerFactory.getLogger(VerificationService.class);
 
@@ -53,13 +56,11 @@ public class VerificationService {
                     .build();
             verificationRepository.save(userVerification);
 
-            StringBuilder message = new StringBuilder();
-            message.append(messageService.getMessage("user.verificationMessage"))
-                    .append("\n")
-                    .append(verificationCode);
-
-            smsService.sendSmsMessage(user.getPhone_number(), String.valueOf(message));
-            return  true;
+            smsDailyLimitService.incrementSmsDailyLimit(user, LimitTypeEnum.USER_VERIFICATION.toString());
+            smsService.sendWhatsAppVerificationMessage(user.getPhone_number(),
+                    verificationCode,
+                    messageService.getMessage("twilio.verificationMessage.template.sid"));
+            return true;
 
         }catch (Exception e){
             logger.error("An Error happened while creating verification code for: "+ user.getPhone_number() + "\n" +
@@ -138,9 +139,14 @@ public class VerificationService {
                 return ResponseEntity.status(response.getHttpStatus()).body(response);
             }
 
+            if(!smsDailyLimitService.canSendSms(verificationRecord.getUser_id(),"USER_VERIFICATION",10)){
+                response.setForbiddenRequest(messageService.getMessage("sms.daily.limit"));
+                return ResponseEntity.status(response.getHttpStatus()).body(response);
+            }
+
             if(canGetNewCode(verificationRecord.getResend_at(),response)){
 
-                String userPhone = userRepository.getUserPhoneById(userId);
+                String userPhone = verificationRecord.getUser_id().getPhone_number();
                 String verificationCode = generateVerificationCode(6);
                 System.out.println("Verification Code: " + verificationCode);
 
@@ -149,12 +155,9 @@ public class VerificationService {
                 resetResendTime(verificationRecord);
                 verificationRepository.save(verificationRecord);
 
-                StringBuilder message = new StringBuilder();
-                message.append(messageService.getMessage("user.verificationMessage"))
-                        .append("\n")
-                        .append(verificationCode);
-
-                smsService.sendSmsMessage(userPhone, String.valueOf(message));
+                smsService.sendWhatsAppVerificationMessage(userPhone, verificationCode,"HXa9544fd879f225ee816cb885c7e20672");
+                smsDailyLimitService.incrementSmsDailyLimit(verificationRecord.getUser_id(),
+                        LimitTypeEnum.USER_VERIFICATION.toString());
                 response.setSuccessful(messageService.getMessage("generic.success"));
             }
 
