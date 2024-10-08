@@ -9,6 +9,7 @@ import com.SportsLink.userAuthentication.verification.VerificationService;
 import com.SportsLink.userAuthentication.verification.requests.VerifyUserRequest;
 import com.SportsLink.utils.GenericResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -45,12 +46,12 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<GenericResponse> login(@Valid @RequestBody LoginRequest request, BindingResult bindingResult){
+    ResponseEntity<GenericResponse> login(@Valid @RequestBody LoginRequest request, HttpServletResponse response, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             String errorMessage = bindingResult.getAllErrors().get(0).getDefaultMessage();
             return ResponseEntity.badRequest().body(new GenericResponse(errorMessage));
         }
-        return loginService.login(request);
+        return loginService.login(request,response);
     }
 
     @PostMapping("/resendCode/{userId}")

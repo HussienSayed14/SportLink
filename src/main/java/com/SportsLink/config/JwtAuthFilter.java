@@ -2,6 +2,7 @@ package com.SportsLink.config;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,19 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
+    private String getJwtFromCookies(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("token".equals(cookie.getName())) {  // Assuming the JWT token is stored in a cookie named "token"
+                    return cookie.getValue();  // Return the JWT token
+                }
+            }
+        }
+        return null;  // No JWT token found in cookies
+    }
+
 
 
     @Override
@@ -39,6 +53,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
            @NonNull HttpServletResponse response,
            @NonNull FilterChain filterChain)
             throws ServletException, IOException {
+
+        //TODO: Extract the JWT from the HttpOnly cookie
+        //String jwtToken = getJwtFromCookies(request);
 
         /** Get the authorization header from the request header */
         final String authHeader = request.getHeader("Authorization");

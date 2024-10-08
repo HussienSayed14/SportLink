@@ -10,6 +10,8 @@ import com.SportsLink.userAuthentication.verification.VerificationService;
 import com.SportsLink.utils.DateTimeService;
 import com.SportsLink.utils.GenericResponse;
 import com.SportsLink.utils.MessageService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +31,7 @@ public class LoginService {
     private final LoginAuditService loginAuditService;
     private static final Logger logger = LoggerFactory.getLogger(LoginService.class);
 
-    public ResponseEntity<GenericResponse> login(LoginRequest request) {
+    public ResponseEntity<GenericResponse> login(LoginRequest request, HttpServletResponse httpResponse) {
         LoginResponse response = new LoginResponse();
 
         try{
@@ -55,6 +57,17 @@ public class LoginService {
                 response.setSuccessful(messageService.getMessage("generic.success"));
                 userRepository.save(user);
                 loginAuditService.createSuccessLoginAudit(user,response.getToken(),"1.1.1",response.getMessage());
+
+                //TODO: Use the HttpOnly cookie instead of bearer token
+                // Create an HttpOnly cookie
+//                Cookie jwtCookie = new Cookie("token", response.getToken());
+//                jwtCookie.setHttpOnly(true);  // Make it HttpOnly
+//                jwtCookie.setSecure(false);    // Set secure flag if you're using HTTPS
+//                jwtCookie.setPath("/");       // Cookie available for all endpoints
+//                jwtCookie.setMaxAge(60 * 60 * 24);  // 1 day expiration
+//
+//                // Add the cookie to the response
+//                httpResponse.addCookie(jwtCookie);
 
             }else {
                 loginAuditService.createFailedLoginAudit(user,response.getMessage());
