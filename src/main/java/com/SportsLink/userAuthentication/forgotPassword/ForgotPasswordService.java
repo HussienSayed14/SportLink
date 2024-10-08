@@ -76,15 +76,12 @@ public class ForgotPasswordService {
 
 
     private void sendForgotPassword(String token, UserModel user){
-        StringBuilder message = new StringBuilder();
         String redirectUrl = environment.getProperty("frontend.forgot.password.url") 
                 + "?token=" + token + "?id=" + user.getUser_id();
-        message.append(messageService.getMessage("forgot.password.instruction"))
-                .append("\n")
-                .append(redirectUrl);
-
         smsDailyLimitService.incrementSmsDailyLimit(user, LimitTypeEnum.FORGOT_PASSWORD.toString());
-        smsService.sendWhatsAppMessage(user.getPhone_number(), String.valueOf(message));
+        smsService.sendWhatsAppForgotPasswordMessage(user.getPhone_number(),
+                redirectUrl,
+                messageService.getMessage("twilio.forgot.password.template.id"));
     }
 
 

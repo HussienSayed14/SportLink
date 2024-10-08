@@ -6,6 +6,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class TwilioWhatsAppService {
 
@@ -29,14 +32,31 @@ public class TwilioWhatsAppService {
 
 
     @Async
-    public void sendWhatsAppMessage(String toNumber,String messageBody){
+    public void sendWhatsAppVerificationMessage(String toNumber,String verificationCode, String templateId){
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
         Message message = Message.creator(
                         new com.twilio.type.PhoneNumber("whatsapp:" + toNumber),
                         new com.twilio.type.PhoneNumber("whatsapp:" + SENDER),
-                        "template.Code")
-                .setBody(messageBody)
+                        templateId)// Content SID of the template
+                .setContentSid(templateId)
+                .setContentVariables("{\"1\":\"" + verificationCode + "\"}")
+                .create();
+
+        System.out.println(message.getBody());
+
+    }
+
+    @Async
+    public void sendWhatsAppForgotPasswordMessage(String toNumber,String url, String templateId){
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+        Message message = Message.creator(
+                        new com.twilio.type.PhoneNumber("whatsapp:" + toNumber),
+                        new com.twilio.type.PhoneNumber("whatsapp:" + SENDER),
+                        templateId)// Content SID of the template
+                .setContentSid(templateId)
+                .setContentVariables("{\"1\":\"" + url + "\"}")
                 .create();
 
         System.out.println(message.getBody());

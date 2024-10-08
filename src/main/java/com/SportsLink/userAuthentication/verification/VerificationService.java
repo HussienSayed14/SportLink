@@ -56,13 +56,10 @@ public class VerificationService {
                     .build();
             verificationRepository.save(userVerification);
 
-            StringBuilder message = new StringBuilder();
-            message.append(messageService.getMessage("user.verificationMessage"))
-                    .append("\n")
-                    .append(verificationCode);
-
             smsDailyLimitService.incrementSmsDailyLimit(user, LimitTypeEnum.USER_VERIFICATION.toString());
-            smsService.sendWhatsAppMessage(user.getPhone_number(), String.valueOf(message));
+            smsService.sendWhatsAppVerificationMessage(user.getPhone_number(),
+                    verificationCode,
+                    messageService.getMessage("twilio.verificationMessage.template.sid"));
             return true;
 
         }catch (Exception e){
@@ -158,12 +155,7 @@ public class VerificationService {
                 resetResendTime(verificationRecord);
                 verificationRepository.save(verificationRecord);
 
-                StringBuilder message = new StringBuilder();
-                message.append(messageService.getMessage("user.verificationMessage"))
-                        .append("\n")
-                        .append(verificationCode);
-
-                smsService.sendWhatsAppMessage(userPhone, String.valueOf(message));
+                smsService.sendWhatsAppVerificationMessage(userPhone, verificationCode,"HXa9544fd879f225ee816cb885c7e20672");
                 smsDailyLimitService.incrementSmsDailyLimit(verificationRecord.getUser_id(),
                         LimitTypeEnum.USER_VERIFICATION.toString());
                 response.setSuccessful(messageService.getMessage("generic.success"));

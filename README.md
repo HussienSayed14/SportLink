@@ -9,13 +9,9 @@
   - [x] Lock Account for 1 Hour After 6 Failed Attempt
   - [x] Send account is locked notification
   - [x] Implement Mechanism to allow login after the lock period ends
-- [] Forgot Password
-- [] In-App Notification
+- [X] Forgot Password
 - [] Logout
   - [] Delete Token from user cookies
   - [] Remove User Session token from database
 - Logging & Auditing
-  - [] Audit every login attempt
-- User Profile
-  - [] Edit Profile Data
-  - [] Upload Profile Picture
+  - [X] Audit every login attempt

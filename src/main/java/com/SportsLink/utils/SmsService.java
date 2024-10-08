@@ -16,10 +16,22 @@ public class SmsService {
 
 
     @Async
-    public void sendWhatsAppMessage(String phoneNumber, String message){
+    public void sendWhatsAppVerificationMessage(String phoneNumber, String verificationCode, String templateId){
         try {
-            //twilioWhatsAppService.sendWhatsAppMessage(phoneNumber,message);
-            logger.info("An sms is sent to: " + phoneNumber + ": " + message);
+            twilioWhatsAppService.sendWhatsAppVerificationMessage(phoneNumber,verificationCode,templateId);
+            logger.info("A verification code is sent to: " + phoneNumber + ": " + verificationCode);
+
+        }catch (Exception e){
+            logger.error("An Error happened while sending sms to: "+ phoneNumber + "\n" +
+                    "Error Message: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public void sendWhatsAppForgotPasswordMessage(String phoneNumber, String url, String templateId){
+        try {
+            twilioWhatsAppService.sendWhatsAppForgotPasswordMessage(phoneNumber,url,templateId);
+            logger.info("A Forgot Password url is sent to: " + phoneNumber + ": " + url);
 
         }catch (Exception e){
             logger.error("An Error happened while sending sms to: "+ phoneNumber + "\n" +
