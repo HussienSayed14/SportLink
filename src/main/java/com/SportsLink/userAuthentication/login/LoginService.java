@@ -10,6 +10,7 @@ import com.SportsLink.userAuthentication.verification.VerificationService;
 import com.SportsLink.utils.DateTimeService;
 import com.SportsLink.utils.GenericResponse;
 import com.SportsLink.utils.MessageService;
+import com.SportsLink.utils.PhoneNumberService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +38,7 @@ public class LoginService {
         try{
             UserModel user =
                     userRepository.findUserByPhoneNumber(
-                            formatPhoneNumber(request.getCountryCode(), request.getPhone()));
+                            PhoneNumberService.formatPhoneNumber(request.getCountryCode(), request.getPhone()));
 
             if(user == null){
                 response.setBadRequest(messageService.getMessage("user.non.exist"));
@@ -131,13 +132,4 @@ public class LoginService {
     }
 
 
-
-    private String formatPhoneNumber(String countryCode, String phoneNumber){
-        countryCode = countryCode.trim();
-        phoneNumber = phoneNumber.trim();
-        if (phoneNumber.startsWith("0")) {
-            phoneNumber = phoneNumber.substring(1);
-        }
-        return countryCode + phoneNumber;
-    }
 }

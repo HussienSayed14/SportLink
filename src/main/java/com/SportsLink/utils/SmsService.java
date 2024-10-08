@@ -1,5 +1,6 @@
 package com.SportsLink.utils;
 
+import com.SportsLink.smsLimit.SmsDailyLimitService;
 import com.SportsLink.utils.twilio.TwilioWhatsAppService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -15,7 +16,7 @@ public class SmsService {
 
 
     @Async
-    public void sendSmsMessage(String phoneNumber, String message){
+    public void sendWhatsAppMessage(String phoneNumber, String message){
         try {
             //twilioWhatsAppService.sendWhatsAppMessage(phoneNumber,message);
             logger.info("An sms is sent to: " + phoneNumber + ": " + message);

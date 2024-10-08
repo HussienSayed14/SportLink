@@ -27,4 +27,7 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 
     @Query(value = "SELECT u.phone_number FROM UserModel u WHERE u.user_id =:userId")
     String getUserPhoneById(int userId);
+
+    @Query(value = "SELECT u FROM UserModel u WHERE u.user_id =:userId")
+    UserModel getUserById(int userId);
 }

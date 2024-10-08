@@ -5,10 +5,10 @@
   - [x] Password Hashing
   - [x] User Verification
     - Verify by Phone number (Whatsapp Message) -> Send OTP
-- [] Sign In
-  - [] Lock Account for 1 Hour After 6 Failed Attempt
-  - [] Send account is locked notification
-  - [] Implement Mechanism to allow login after the lock period ends
+- [x] Sign In
+  - [x] Lock Account for 1 Hour After 6 Failed Attempt
+  - [x] Send account is locked notification
+  - [x] Implement Mechanism to allow login after the lock period ends
 - [] Forgot Password
 - [] In-App Notification
 - [] Logout

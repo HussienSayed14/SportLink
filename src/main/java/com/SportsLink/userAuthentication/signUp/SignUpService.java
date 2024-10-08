@@ -9,6 +9,7 @@ import com.SportsLink.userAuthentication.verification.VerificationService;
 import com.SportsLink.utils.DateTimeService;
 import com.SportsLink.utils.GenericResponse;
 import com.SportsLink.utils.MessageService;
+import com.SportsLink.utils.PhoneNumberService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +40,7 @@ public class SignUpService {
             }
 
              user = UserModel.builder()
-                    .phone_number(formatPhoneNumber(request.getCountryCode(),request.getPhoneNumber()))
+                    .phone_number(PhoneNumberService.formatPhoneNumber(request.getCountryCode(),request.getPhoneNumber()))
                     .email(request.getEmail())
                     .name(request.getFullName())
                     .role(request.getRole())
@@ -64,12 +65,4 @@ public class SignUpService {
         return ResponseEntity.status(response.getHttpStatus()).body(response);
     }
 
-    private String formatPhoneNumber(String countryCode, String phoneNumber){
-        countryCode = countryCode.trim();
-        phoneNumber = phoneNumber.trim();
-        if (phoneNumber.startsWith("0")) {
-            phoneNumber = phoneNumber.substring(1);
-        }
-        return countryCode + phoneNumber;
-    }
 }

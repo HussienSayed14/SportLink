@@ -2,6 +2,8 @@ package com.SportsLink.userAuthentication;
 
 
 import com.SportsLink.loginAudit.LoginAuditModel;
+import com.SportsLink.smsLimit.SmsDailyLimitModel;
+import com.SportsLink.userAuthentication.forgotPassword.ForgotPasswordModel;
 import com.SportsLink.userAuthentication.verification.VerificationModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -64,6 +66,12 @@ public class UserModel implements UserDetails {
     @JsonIgnore
     @OneToOne(mappedBy = "user_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     VerificationModel userVerification;
+    @OneToOne(mappedBy = "user_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private ForgotPasswordModel forgotPasswordRecord;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user_id",fetch = FetchType.LAZY)
+    private List<SmsDailyLimitModel> dailyLimits;
 
 
 

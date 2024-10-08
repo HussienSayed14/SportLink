@@ -1,6 +1,9 @@
 package com.SportsLink.userAuthentication;
 
 
+import com.SportsLink.userAuthentication.forgotPassword.ForgotPasswordService;
+import com.SportsLink.userAuthentication.forgotPassword.requests.ForgotPasswordRequest;
+import com.SportsLink.userAuthentication.forgotPassword.requests.NewPasswordRequest;
 import com.SportsLink.userAuthentication.login.LoginService;
 import com.SportsLink.userAuthentication.login.requests.LoginRequest;
 import com.SportsLink.userAuthentication.signUp.SignUpService;
@@ -26,6 +29,8 @@ public class AuthenticationController {
     private final SignUpService signUpService;
     private final LoginService loginService;
     private final VerificationService verificationService;
+    private final ForgotPasswordService forgotPasswordService;
+
 
     @PostMapping(value = "/signUp", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<GenericResponse> signUp(@Valid @RequestBody SignUpRequest request, BindingResult bindingResult){
@@ -57,6 +62,24 @@ public class AuthenticationController {
     @PostMapping("/resendCode/{userId}")
     ResponseEntity<GenericResponse> resendVerificationCode(@PathVariable int userId){
         return verificationService.resendVerificationCode(userId);
+    }
+
+    @PostMapping("/forgotPassword")
+    ResponseEntity<GenericResponse> createForgotPassword(@Valid @RequestBody ForgotPasswordRequest request, BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            String errorMessage = bindingResult.getAllErrors().get(0).getDefaultMessage();
+            return ResponseEntity.badRequest().body(new GenericResponse(errorMessage));
+        }
+        return forgotPasswordService.createForgotPassword(request);
+    }
+
+    @PostMapping("/resetPassword")
+    ResponseEntity<GenericResponse> resetUserPassword(@Valid @RequestBody NewPasswordRequest request, BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            String errorMessage = bindingResult.getAllErrors().get(0).getDefaultMessage();
+            return ResponseEntity.badRequest().body(new GenericResponse(errorMessage));
+        }
+        return forgotPasswordService.resetUserPassword(request);
     }
 
 
