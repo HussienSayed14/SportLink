@@ -39,6 +39,7 @@ public class LoginService {
 
             if(user == null){
                 response.setBadRequest(messageService.getMessage("user.non.exist"));
+                response.setVerified(true);
                 return ResponseEntity.status(response.getHttpStatus()).body(response);
             }
 
@@ -80,7 +81,7 @@ public class LoginService {
         response.setUnauthorizedRequest(
                 messageService.getMessage("login.wrong.password") + (6 - user.getFailed_attempts()));
 
-        if(user.getFailed_attempts() > 6){
+        if(user.getFailed_attempts() >= 6){
             // Block User
             user.set_blocked(true);
             user.setBlocked_until(dateTimeService.addHoursToNow(1));
