@@ -61,14 +61,14 @@ public class LoginService {
 
                 //TODO: Use the HttpOnly cookie instead of bearer token
                 // Create an HttpOnly cookie
-//                Cookie jwtCookie = new Cookie("token", response.getToken());
-//                jwtCookie.setHttpOnly(true);  // Make it HttpOnly
-//                jwtCookie.setSecure(false);    // Set secure flag if you're using HTTPS
-//                jwtCookie.setPath("/");       // Cookie available for all endpoints
-//                jwtCookie.setMaxAge(60 * 60 * 24);  // 1 day expiration
-//
-//                // Add the cookie to the response
-//                httpResponse.addCookie(jwtCookie);
+                Cookie jwtCookie = new Cookie("token", response.getToken());
+                jwtCookie.setHttpOnly(true);  // Make it HttpOnly
+                jwtCookie.setSecure(false);    // Set secure flag if you're using HTTPS
+                jwtCookie.setPath("/");       // Cookie available for all endpoints
+                jwtCookie.setMaxAge(60 * 60 * 24);  // 1 day expiration
+
+                // Add the cookie to the response
+                httpResponse.addCookie(jwtCookie);
 
             }else {
                 loginAuditService.createFailedLoginAudit(user,response.getMessage());

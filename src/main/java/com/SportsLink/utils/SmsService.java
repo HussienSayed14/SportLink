@@ -18,7 +18,7 @@ public class SmsService {
     @Async
     public void sendWhatsAppVerificationMessage(String phoneNumber, String verificationCode, String templateId){
         try {
-            twilioWhatsAppService.sendWhatsAppVerificationMessage(phoneNumber,verificationCode,templateId);
+//            twilioWhatsAppService.sendWhatsAppVerificationMessage(phoneNumber,verificationCode,templateId);
             logger.info("A verification code is sent to: " + phoneNumber + ": " + verificationCode);
 
         }catch (Exception e){
@@ -30,7 +30,7 @@ public class SmsService {
 
     public void sendWhatsAppForgotPasswordMessage(String phoneNumber, String url, String templateId){
         try {
-            twilioWhatsAppService.sendWhatsAppForgotPasswordMessage(phoneNumber,url,templateId);
+//            twilioWhatsAppService.sendWhatsAppForgotPasswordMessage(phoneNumber,url,templateId);
             logger.info("A Forgot Password url is sent to: " + phoneNumber + ": " + url);
 
         }catch (Exception e){

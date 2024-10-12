@@ -12,9 +12,11 @@ import com.SportsLink.userAuthentication.verification.VerificationService;
 import com.SportsLink.userAuthentication.verification.requests.VerifyUserRequest;
 import com.SportsLink.utils.GenericResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -82,6 +84,23 @@ public class AuthenticationController {
         return forgotPasswordService.resetUserPassword(request);
     }
 
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletResponse response) {
+        // Create a new Cookie with the same name as the JWT cookie
+        Cookie cookie = new Cookie("token", null); // Set value to null
+        // Set the cookie attributes to ensure it gets removed in the browser
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true); // Same as when you set it (ensure it's only sent over HTTPS)
+        cookie.setPath("/"); // Same as the original cookie path
+        cookie.setMaxAge(0); // This will remove the cookie immediately
+
+        // Add the cookie to the response to remove it from the browser
+        response.addCookie(cookie);
+
+        // Return success message
+        return new ResponseEntity<>("Logged out successfully", HttpStatus.OK);
+    }
 
 
 }
