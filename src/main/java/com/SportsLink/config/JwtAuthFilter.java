@@ -54,39 +54,52 @@ public class JwtAuthFilter extends OncePerRequestFilter {
            @NonNull FilterChain filterChain)
             throws ServletException, IOException {
 
-        //TODO: Extract the JWT from the HttpOnly cookie
-        //String jwtToken = getJwtFromCookies(request);
+        /** Extract the JWT from the HttpOnly cookie */
+        final String jwtToken = getJwtFromCookies(request);
 
-        /** Get the authorization header from the request header */
-        final String authHeader = request.getHeader("Authorization");
-
-        final String jwtToken;
         final String userPhone;
-        /** If the authorization header is null or does not start with "Bearer "
+        /** If the jwt Token extracted from the cookies
          * then the request will be allowed to pass through to the next filter in the filter chain.
           */
-        if(authHeader == null || !authHeader.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
+
+        if(jwtToken == null ) {
+            // If the token is null, return a 403 response and stop the filter chain
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN); // 403 status code
+            response.getWriter().write("{\"message\": \"You are not authorized to access this resource, please login first\"}");
+            return;
+
+//            filterChain.doFilter(request, response);
+        }
+
+
+        try{
+
+            userPhone = jwtService.extractUserPhone(jwtToken);
+            /** This means that the user is NOT already authenticated */
+            if(userPhone != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserDetails user = this.userDetailsService.loadUserByUsername(userPhone);
+                /** If the JWT token is valid, then the user will be authenticated and update Security context*/
+                if(jwtService.isTokenValid(jwtToken,user)){
+                    UsernamePasswordAuthenticationToken authToken =
+                            new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
+                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                }else{
+                    response.setContentType("application/json");
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 status code
+                    response.getWriter().write("{\"message\": \"Your session has expired, please login again\"}");
+                    return;
+                }
+            }
+        }catch (Exception e){
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 status code
+            response.getWriter().write("{\"message\": \"Your session has expired, please login again\"}");
             return;
         }
-
-        /** Get the JWT token from the authorization header */
-        jwtToken = authHeader.substring(7);
-        userPhone = jwtService.extractUserPhone(jwtToken);
-        /** This means that the user is NOT already authenticated */
-        if(userPhone != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails user = this.userDetailsService.loadUserByUsername(userPhone);
-            /** If the JWT token is valid, then the user will be authenticated and update Security context*/
-            if(jwtService.isTokenValid(jwtToken,user)){
-                UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-                SecurityContextHolder.getContext().setAuthentication(authToken);
-            }
-        }
         filterChain.doFilter(request,response);
-
 
 
     }
