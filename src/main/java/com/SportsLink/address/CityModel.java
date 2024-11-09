@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "city")
 public class CityModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -13,6 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "district")
 public class DistrictModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
