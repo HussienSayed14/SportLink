@@ -9,6 +9,5 @@
   - [] Set Pitch hourly price etc...
   - [] Add Pitch images
 - Search Fields & Pitches
-  - [] Create a function that search for field (Filter by Type)
+  - [] Create a function that search for field (Filter by Area)
   - [] When a field is pressed get all its pitches filtered, there will be a filter on the pitches
-  - Each pitch will have its available hours(Create after the creation of hourly slots)
