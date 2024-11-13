@@ -43,7 +43,7 @@ public class UserModel implements UserDetails {
     @Column(name = "phone_number", length = 15, nullable = false)
     private String phone_number;
     @Email
-    @Column(name = "email", length = 120, nullable = true)
+    @Column(name = "email", length = 120)
     private String email;
     @NotNull(message = "Name cannot be null")
     @Size(max = 100, message = "Name must be less than or equal to 100 characters")
@@ -68,7 +68,7 @@ public class UserModel implements UserDetails {
     @OneToMany(mappedBy = "user_id",fetch = FetchType.LAZY)
     private List<LoginAuditModel> loginAudits;
     @JsonIgnore
-    @OneToMany(mappedBy = "field_owner",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "fieldOwner",fetch = FetchType.LAZY)
     private List<FieldModel> ownedFields;
     @JsonIgnore
     @OneToOne(mappedBy = "user_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

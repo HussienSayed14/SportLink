@@ -22,13 +22,13 @@ public class FieldModel {
 
     @ManyToOne
     @JoinColumn(name = "field_owner_id")
-    private UserModel field_owner;
+    private UserModel fieldOwner;
 
     @Column(name = "field_name_en", nullable = false, length = 100)
-    private String field_name_en;
+    private String fieldNameEn;
 
     @Column(name = "field_name_ar", nullable = false, length = 100)
-    private String field_name_ar;
+    private String fieldNameAr;
 
     @Column(name = "land_mark_en", length = 150)
     private String landMarkEn;
