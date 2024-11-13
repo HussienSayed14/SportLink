@@ -4,6 +4,8 @@ import com.SportsLink.address.CityModel;
 import com.SportsLink.address.DistrictModel;
 import com.SportsLink.address.GovernoratesModel;
 import com.SportsLink.fields.requests.CreateFieldRequest;
+import com.SportsLink.fields.requests.SearchFieldRequest;
+import com.SportsLink.fields.responses.SearchFieldResponse;
 import com.SportsLink.userAuthentication.UserModel;
 import com.SportsLink.userAuthentication.login.LoginService;
 import com.SportsLink.utils.GenericResponse;
@@ -12,8 +14,11 @@ import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -65,6 +70,23 @@ public class FieldService {
 
         }
 
+        return ResponseEntity.status(response.getHttpStatus()).body(response);
+    }
+
+    public ResponseEntity<GenericResponse> searchField(SearchFieldRequest request) {
+        SearchFieldResponse response = new SearchFieldResponse();
+        try{
+            Specification<FieldModel> spec = FieldSpecification.searchFields(request);
+            List<FieldModel>  searchResult = fieldRepository.findAll(spec);
+            response.setSuccessful(messageService.getMessage("generic.success"));
+            response.setFields(searchResult);
+
+        }catch (Exception e){
+            response.setServerError(messageService.getMessage("unexpected.error"));
+            logger.error("An Error happened while searching for Field \n" +
+                    "Error Message: " + e.getMessage());
+            e.printStackTrace();
+        }
         return ResponseEntity.status(response.getHttpStatus()).body(response);
     }
 }

@@ -2,6 +2,7 @@ package com.SportsLink.fields;
 
 
 import com.SportsLink.fields.requests.CreateFieldRequest;
+import com.SportsLink.fields.requests.SearchFieldRequest;
 import com.SportsLink.utils.GenericResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -30,6 +31,15 @@ public class FieldController {
             return ResponseEntity.badRequest().body(new GenericResponse(errorMessage));
         }
         return fieldService.createField(request);
+    }
+
+    @PostMapping("/search")
+    ResponseEntity<GenericResponse> createField(@Valid @RequestBody SearchFieldRequest request, BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            String errorMessage = bindingResult.getAllErrors().get(0).getDefaultMessage();
+            return ResponseEntity.badRequest().body(new GenericResponse(errorMessage));
+        }
+        return fieldService.searchField(request);
     }
 
 
