@@ -19,9 +19,6 @@ import lombok.*;
         @Index(name = "idx_hour_price", columnList = "hour_price"),
         @Index(name = "idx_is_blocked", columnList = "is_blocked"),
         @Index(name = "idx_city_hour_price", columnList = "city_id, hour_price")
-
-
-
 })
 public class FieldModel {
 
