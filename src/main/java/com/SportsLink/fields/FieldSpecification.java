@@ -31,16 +31,20 @@ public class FieldSpecification {
                 predicates.add(cb.lessThanOrEqualTo(root.get("hourPrice"), request.getMaxPrice()));
             }
 
-            // 3. Filter by governorate, city, and district
-            if (request.getGovernorateId() != null) {
-                predicates.add(cb.equal(root.get("governorate").get("governorate_id"), request.getGovernorateId()));
-            }
-            if (request.getCityId() != null) {
-                predicates.add(cb.equal(root.get("city").get("city_id"), request.getCityId()));
-            }
+            // 3. Filter by location based on availability of district_id, city_id, or governorate_id
             if (request.getDistrictId() != null) {
+                // If district_id is provided, use only district_id for filtering
                 predicates.add(cb.equal(root.get("district").get("district_id"), request.getDistrictId()));
+            } else if (request.getCityId() != null) {
+                // If city_id is provided but no district_id, use only city_id for filtering
+                predicates.add(cb.equal(root.get("city").get("id"), request.getCityId()));
+            } else if (request.getGovernorateId() != null) {
+                // If only governorate_id is provided, use it for filtering
+                predicates.add(cb.equal(root.get("governorate").get("id"), request.getGovernorateId()));
             }
+
+            // 4. Filter unblocked fields only
+            predicates.add(cb.isFalse(root.get("isBlocked")));
 
             return cb.and(predicates.toArray(new Predicate[0])); // Combine all predicates with AND
         };

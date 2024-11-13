@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/sportsLink/api/v1/fields")
@@ -34,12 +31,14 @@ public class FieldController {
     }
 
     @PostMapping("/search")
-    ResponseEntity<GenericResponse> createField(@Valid @RequestBody SearchFieldRequest request, BindingResult bindingResult){
+    ResponseEntity<GenericResponse> createField(@Valid @RequestBody SearchFieldRequest request,
+                                                @RequestHeader(value = "Accept-Language", defaultValue = "en") String acceptLanguage,
+                                                BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             String errorMessage = bindingResult.getAllErrors().get(0).getDefaultMessage();
             return ResponseEntity.badRequest().body(new GenericResponse(errorMessage));
         }
-        return fieldService.searchField(request);
+        return fieldService.searchField(request,acceptLanguage);
     }
 
 
