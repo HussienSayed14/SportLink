@@ -4,6 +4,7 @@ import com.SportsLink.address.CityModel;
 import com.SportsLink.address.DistrictModel;
 import com.SportsLink.address.GovernoratesModel;
 import com.SportsLink.fields.requests.CreateFieldRequest;
+import com.SportsLink.userAuthentication.UserModel;
 import com.SportsLink.userAuthentication.login.LoginService;
 import com.SportsLink.utils.GenericResponse;
 import com.SportsLink.utils.MessageService;
@@ -45,7 +46,13 @@ public class FieldService {
             if (request.getDistrictId() != null) {
                 field.setDistrict(entityManager.getReference(DistrictModel.class, request.getDistrictId()));
             } else {
-                field.setDistrict(null); // Optional: Explicitly set to null if district is not provided
+                field.setDistrict(null);
+            }
+
+            if (request.getFieldOwnerId() != null) {
+                field.setFieldOwner(entityManager.getReference(UserModel.class, request.getFieldOwnerId()));
+            } else {
+                field.setFieldOwner(null);
             }
             fieldRepository.save(field);
             response.setSuccessful(messageService.getMessage("generic.success"));
