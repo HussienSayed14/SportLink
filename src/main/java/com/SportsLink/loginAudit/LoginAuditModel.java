@@ -22,7 +22,7 @@ public class LoginAuditModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int login_audit_id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserModel user_id;
     private String session_id;

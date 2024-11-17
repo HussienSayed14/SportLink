@@ -3,8 +3,10 @@ package com.SportsLink.fields;
 
 import com.SportsLink.fields.requests.CreateFieldRequest;
 import com.SportsLink.fields.requests.SearchFieldRequest;
+import com.SportsLink.reviews.ReviewService;
 import com.SportsLink.utils.GenericResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 public class FieldController {
 
     private final FieldService fieldService;
+    private final ReviewService reviewService;
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_OWNER')")
     @PostMapping("/createField")
@@ -40,6 +43,13 @@ public class FieldController {
         }
         return fieldService.searchField(request,acceptLanguage);
     }
+
+    @PostMapping("/followField/{fieldId}")
+    ResponseEntity<GenericResponse> followField(@PathVariable int fieldId, HttpServletRequest httpServletRequest){
+        return fieldService.followField(fieldId, httpServletRequest);
+    }
+
+
 
 
 }

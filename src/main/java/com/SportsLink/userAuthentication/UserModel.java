@@ -5,7 +5,9 @@ import com.SportsLink.fields.FieldModel;
 import com.SportsLink.address.CityModel;
 import com.SportsLink.address.DistrictModel;
 import com.SportsLink.address.GovernoratesModel;
+import com.SportsLink.followers.FollowerModel;
 import com.SportsLink.loginAudit.LoginAuditModel;
+import com.SportsLink.reviews.ReviewModel;
 import com.SportsLink.smsLimit.SmsDailyLimitModel;
 import com.SportsLink.userAuthentication.forgotPassword.ForgotPasswordModel;
 import com.SportsLink.userAuthentication.verification.VerificationModel;
@@ -91,6 +93,12 @@ public class UserModel implements UserDetails {
     @OneToOne
     @JoinColumn(name = "district_id", referencedColumnName = "district_id")
     private DistrictModel district;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReviewModel> reviews;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FollowerModel> followingFields;
 
 
 

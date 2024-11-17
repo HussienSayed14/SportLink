@@ -5,6 +5,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +23,25 @@ import java.util.function.Function;
 public class JwtService {
     private final Environment environment;
 
+
+
+    public String getJwtFromCookies(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("token".equals(cookie.getName())) {
+                    return cookie.getValue();
+                }
+            }
+        }
+        return null;  // No JWT token found in cookies
+    }
+
+    public Integer extractUserIdFromCookie(HttpServletRequest request){
+       String token = getJwtFromCookies(request);
+       return extractUserId(token);
+    }
 
 
     public String extractUserPhone(String token) {

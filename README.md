@@ -8,7 +8,8 @@
 - Search Fields
   - [x] Create a function that search for field (Filter by Area, Name, Price)
 - Create Field Reviews []
-- Add Field to Favourites []
+- Follow Field []
+- Show field number of followers
 - Send WhatsApp notifications to users who have the field ad favourite []
 - Integrate Weather Forcats [] After frontend
   

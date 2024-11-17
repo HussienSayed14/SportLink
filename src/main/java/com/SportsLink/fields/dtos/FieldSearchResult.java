@@ -13,7 +13,7 @@ public class FieldSearchResult {
     private String googleMapsLocation;
     private boolean isActive;
     private boolean isVerified;
-
+    private double averageRating;
     private String governorateName;
     private String cityName;
     private String districtName;

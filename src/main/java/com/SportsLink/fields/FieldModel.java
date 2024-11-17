@@ -3,9 +3,13 @@ package com.SportsLink.fields;
 import com.SportsLink.address.CityModel;
 import com.SportsLink.address.DistrictModel;
 import com.SportsLink.address.GovernoratesModel;
+import com.SportsLink.followers.FollowerModel;
+import com.SportsLink.reviews.ReviewModel;
 import com.SportsLink.userAuthentication.UserModel;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -24,9 +28,9 @@ public class FieldModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int field_id;
+    private int id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "field_owner_id")
     private UserModel fieldOwner;
 
@@ -68,5 +72,17 @@ public class FieldModel {
     @OneToOne
     @JoinColumn(name = "district_id", referencedColumnName = "district_id")
     private DistrictModel district;
+
+    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReviewModel> reviews;
+
+    @Column(name = "average_rating")
+    private Double averageRating;
+
+    @Column(name = "followers_count")
+    private int followersCount;
+
+    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FollowerModel> followers;
 
 }
