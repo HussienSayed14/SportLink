@@ -14,6 +14,6 @@ public class FieldAsyncService {
     @Async
     public void updateFieldFollowers(int fieldId) {
         int followersCount = followersRepository.findFollowersByFieldId(fieldId);
-        fieldRepository.incrementFollowerCountById(fieldId, followersCount);
+        fieldRepository.incrementFollowerCountById(fieldId, followersCount + 1);
     }
 }

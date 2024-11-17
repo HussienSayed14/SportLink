@@ -10,6 +10,6 @@ public interface FieldRepository extends JpaRepository<FieldModel, Integer>, Jpa
 
     @Modifying
     @Transactional
-    @Query("UPDATE FieldModel f SET f.followerCount = :followersCount + 1 WHERE f.id = :fieldId")
+    @Query("UPDATE FieldModel f SET f.followersCount =:followersCount WHERE f.id = :fieldId")
     void incrementFollowerCountById(int fieldId, int followersCount);
 }
