@@ -1,7 +1,8 @@
 package com.SportsLink.userAuthentication;
 
 public enum RolesEnum {
-    USER,
-    OWNER,
-    EMPLOYEE
+    ROLE_USER,
+    ROLE_OWNER,
+    ROLE_EMPLOYEE,
+    ROLE_ADMIN
 }

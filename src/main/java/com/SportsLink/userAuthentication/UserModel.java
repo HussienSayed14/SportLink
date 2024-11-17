@@ -1,7 +1,13 @@
 package com.SportsLink.userAuthentication;
 
 
+import com.SportsLink.fields.FieldModel;
+import com.SportsLink.address.CityModel;
+import com.SportsLink.address.DistrictModel;
+import com.SportsLink.address.GovernoratesModel;
+import com.SportsLink.followers.FollowerModel;
 import com.SportsLink.loginAudit.LoginAuditModel;
+import com.SportsLink.reviews.ReviewModel;
 import com.SportsLink.smsLimit.SmsDailyLimitModel;
 import com.SportsLink.userAuthentication.forgotPassword.ForgotPasswordModel;
 import com.SportsLink.userAuthentication.verification.VerificationModel;
@@ -39,7 +45,7 @@ public class UserModel implements UserDetails {
     @Column(name = "phone_number", length = 15, nullable = false)
     private String phone_number;
     @Email
-    @Column(name = "email", length = 120, nullable = true)
+    @Column(name = "email", length = 120)
     private String email;
     @NotNull(message = "Name cannot be null")
     @Size(max = 100, message = "Name must be less than or equal to 100 characters")
@@ -64,6 +70,9 @@ public class UserModel implements UserDetails {
     @OneToMany(mappedBy = "user_id",fetch = FetchType.LAZY)
     private List<LoginAuditModel> loginAudits;
     @JsonIgnore
+    @OneToMany(mappedBy = "fieldOwner",fetch = FetchType.LAZY)
+    private List<FieldModel> ownedFields;
+    @JsonIgnore
     @OneToOne(mappedBy = "user_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     VerificationModel userVerification;
     @OneToOne(mappedBy = "user_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -72,6 +81,25 @@ public class UserModel implements UserDetails {
     @JsonIgnore
     @OneToMany(mappedBy = "user_id",fetch = FetchType.LAZY)
     private List<SmsDailyLimitModel> dailyLimits;
+
+    @OneToOne
+    @JoinColumn(name = "governorate_id", referencedColumnName = "governorate_id")
+    private GovernoratesModel governorate;
+
+    @OneToOne
+    @JoinColumn(name = "city_id", referencedColumnName = "city_id")
+    private CityModel city;
+
+    @OneToOne
+    @JoinColumn(name = "district_id", referencedColumnName = "district_id")
+    private DistrictModel district;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReviewModel> reviews;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FollowerModel> followingFields;
+
 
 
 

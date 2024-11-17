@@ -59,8 +59,7 @@ public class LoginService {
                 userRepository.save(user);
                 loginAuditService.createSuccessLoginAudit(user,response.getToken(),"1.1.1",response.getMessage());
 
-                //TODO: Use the HttpOnly cookie instead of bearer token
-                // Create an HttpOnly cookie
+
                 Cookie jwtCookie = new Cookie("token", response.getToken());
                 jwtCookie.setHttpOnly(true);  // Make it HttpOnly
                 jwtCookie.setSecure(false);    // Set secure flag if you're using HTTPS

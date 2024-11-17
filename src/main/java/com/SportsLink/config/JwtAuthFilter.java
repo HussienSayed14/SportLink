@@ -32,19 +32,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
-    private String getJwtFromCookies(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if ("token".equals(cookie.getName())) {  // Assuming the JWT token is stored in a cookie named "token"
-                    return cookie.getValue();  // Return the JWT token
-                }
-            }
-        }
-        return null;  // No JWT token found in cookies
-    }
-
 
 
     @Override
@@ -55,7 +42,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         /** Extract the JWT from the HttpOnly cookie */
-        final String jwtToken = getJwtFromCookies(request);
+        final String jwtToken = jwtService.getJwtFromCookies(request);
 
         final String userPhone;
         /** If the jwt Token extracted from the cookies
