@@ -9,6 +9,7 @@ import com.SportsLink.fields.requests.CreateFieldRequest;
 import com.SportsLink.fields.requests.SearchFieldRequest;
 import com.SportsLink.fields.responses.SearchFieldResponse;
 import com.SportsLink.followers.FollowerService;
+import com.SportsLink.followers.FollowersRepository;
 import com.SportsLink.userAuthentication.UserModel;
 import com.SportsLink.userAuthentication.login.LoginService;
 import com.SportsLink.utils.GenericResponse;
@@ -32,9 +33,9 @@ public class FieldService {
     private final MessageService messageService;
     private final FieldRepository fieldRepository;
     private final EntityManager entityManager;
-    private final FieldAsyncService fieldAsyncService;
     private final FollowerService followerService;
     private final JwtService jwtService;
+    private final FollowersRepository followersRepository;
 
     public ResponseEntity<GenericResponse> createField(CreateFieldRequest request) {
         GenericResponse response = new GenericResponse();
@@ -106,8 +107,8 @@ public class FieldService {
         try {
             int userId = jwtService.extractUserIdFromCookie(httpServletRequest);
             followerService.createFieldFollower(fieldId,userId);
+            updateFieldFollowersCount(fieldId);
             response.setSuccessful(messageService.getMessage("generic.success"));
-            fieldAsyncService.incrementFieldFollowers(fieldId);
 
 
         }catch (Exception e){
@@ -123,9 +124,9 @@ public class FieldService {
         GenericResponse response = new GenericResponse();
         try {
             int userId = jwtService.extractUserIdFromCookie(httpServletRequest);
-            followerService.createFieldFollower(fieldId,userId);
+            followerService.deleteFieldFollower(fieldId,userId);
+            updateFieldFollowersCount(fieldId);
             response.setSuccessful(messageService.getMessage("generic.success"));
-            fieldAsyncService.decrementFieldFollowers(fieldId);
 
 
         }catch (Exception e){
@@ -135,6 +136,11 @@ public class FieldService {
             e.printStackTrace();
         }
         return ResponseEntity.status(response.getHttpStatus()).body(response);
+    }
+
+    private void updateFieldFollowersCount(int fieldId){
+        int followersCount = followersRepository.findFollowersByFieldId(fieldId);
+        fieldRepository.updateFieldFollowersCount(fieldId,followersCount);
     }
 
 
