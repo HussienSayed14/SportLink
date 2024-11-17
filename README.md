@@ -11,6 +11,8 @@ The backend is written in **Java**, utilizing robust frameworks like **Spring Bo
 - **Field and Pitch Management**:
   - Field owners can register football or padel fields, define availability, and set prices.
   - Each field can have multiple pitches with configurable options like surface type, player capacity, and pitch type.
+- **Add field review and Rating**:
+- **Follow Field and get notified about updated**:
 - **Dynamic Booking System**:
   - Users can view available fields and pitches in real-time and book them for specific hourly slots.
   - Bookings include start and end times, price calculations, and automatic status updates (`Booked`, `Available`, `Blocked`).
