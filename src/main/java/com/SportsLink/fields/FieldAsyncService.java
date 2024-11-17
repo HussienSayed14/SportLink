@@ -9,11 +9,14 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class FieldAsyncService {
     private final FieldRepository fieldRepository;
-    private final FollowersRepository followersRepository;
 
     @Async
-    public void updateFieldFollowers(int fieldId) {
-        int followersCount = followersRepository.findFollowersByFieldId(fieldId);
-        fieldRepository.incrementFollowerCountById(fieldId, followersCount + 1);
+    public void incrementFieldFollowers(int fieldId) {
+        fieldRepository.incrementFieldFollowers(fieldId);
+    }
+
+    @Async
+    public void decrementFieldFollowers(int fieldId) {
+        fieldRepository.decrementFieldFollowers(fieldId);
     }
 }

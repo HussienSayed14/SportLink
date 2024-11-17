@@ -107,7 +107,7 @@ public class FieldService {
             int userId = jwtService.extractUserIdFromCookie(httpServletRequest);
             followerService.createFieldFollower(fieldId,userId);
             response.setSuccessful(messageService.getMessage("generic.success"));
-            fieldAsyncService.updateFieldFollowers(fieldId);
+            fieldAsyncService.incrementFieldFollowers(fieldId);
 
 
         }catch (Exception e){
@@ -125,7 +125,7 @@ public class FieldService {
             int userId = jwtService.extractUserIdFromCookie(httpServletRequest);
             followerService.createFieldFollower(fieldId,userId);
             response.setSuccessful(messageService.getMessage("generic.success"));
-            fieldAsyncService.updateFieldFollowers(fieldId);
+            fieldAsyncService.decrementFieldFollowers(fieldId);
 
 
         }catch (Exception e){
