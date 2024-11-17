@@ -49,6 +49,11 @@ public class FieldController {
         return fieldService.followField(fieldId, httpServletRequest);
     }
 
+    @PostMapping("/unfollowField/{fieldId}")
+    ResponseEntity<GenericResponse> unfollowField(@PathVariable int fieldId, HttpServletRequest httpServletRequest){
+        return fieldService.unfollowField(fieldId, httpServletRequest);
+    }
+
 
 
 

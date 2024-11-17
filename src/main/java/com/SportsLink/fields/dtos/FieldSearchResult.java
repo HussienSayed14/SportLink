@@ -17,4 +17,5 @@ public class FieldSearchResult {
     private String governorateName;
     private String cityName;
     private String districtName;
+    private int followersCount;
 }

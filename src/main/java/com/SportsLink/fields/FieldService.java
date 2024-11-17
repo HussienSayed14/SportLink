@@ -119,6 +119,24 @@ public class FieldService {
         return ResponseEntity.status(response.getHttpStatus()).body(response);
     }
 
+    public ResponseEntity<GenericResponse> unfollowField(int fieldId, HttpServletRequest httpServletRequest) {
+        GenericResponse response = new GenericResponse();
+        try {
+            int userId = jwtService.extractUserIdFromCookie(httpServletRequest);
+            followerService.createFieldFollower(fieldId,userId);
+            response.setSuccessful(messageService.getMessage("generic.success"));
+            fieldAsyncService.updateFieldFollowers(fieldId);
+
+
+        }catch (Exception e){
+            response.setServerError(messageService.getMessage("unexpected.error"));
+            logger.error("An Error happened while following Field \n" +
+                    "Error Message: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(response.getHttpStatus()).body(response);
+    }
+
 
 
 
@@ -134,7 +152,7 @@ public class FieldService {
         response.setActive(field.isActive());
         response.setVerified(field.isVerified());
         response.setAverageRating(field.getAverageRating());
-
+        response.setFollowersCount(field.getFollowersCount());
         // Set location names based on the preferred language
         if (field.getGovernorate() != null) {
             response.setGovernorateName(language.equals("ar") ? field.getGovernorate().getName_ar() : field.getGovernorate().getName_en());
@@ -148,6 +166,7 @@ public class FieldService {
 
         return response;
     }
+
 
 
 }
