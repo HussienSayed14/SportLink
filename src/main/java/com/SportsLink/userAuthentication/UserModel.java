@@ -7,6 +7,7 @@ import com.SportsLink.address.DistrictModel;
 import com.SportsLink.address.GovernoratesModel;
 import com.SportsLink.followers.FollowerModel;
 import com.SportsLink.loginAudit.LoginAuditModel;
+import com.SportsLink.notification.UserNotificationModel;
 import com.SportsLink.reviews.ReviewModel;
 import com.SportsLink.smsLimit.SmsDailyLimitModel;
 import com.SportsLink.userAuthentication.forgotPassword.ForgotPasswordModel;
@@ -100,7 +101,8 @@ public class UserModel implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FollowerModel> followingFields;
 
-
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserNotificationModel> notifications;
 
 
 
