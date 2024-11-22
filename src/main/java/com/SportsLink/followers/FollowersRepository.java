@@ -13,6 +13,6 @@ public interface FollowersRepository extends JpaRepository<FollowerModel,Integer
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE f FROM FollowerModel f WHERE f.user.user_id =:userId AND f.field.id =:fieldId")
+    @Query(value = "DELETE FROM FollowerModel f WHERE f.user.user_id =:userId AND f.field.id =:fieldId")
     void deleteFieldFollow(int fieldId, int userId);
 }

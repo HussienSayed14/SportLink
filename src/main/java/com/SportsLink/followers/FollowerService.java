@@ -36,7 +36,6 @@ public class FollowerService {
 
     public boolean deleteFieldFollower(int fieldId, int userId){
         try {
-
             followersRepository.deleteFieldFollow(fieldId, userId);
             return true;
         }catch (Exception e){
