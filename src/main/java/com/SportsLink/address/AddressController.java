@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/sportsLink/api/v1/address")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:5173/", allowCredentials = "true")
 @Tag(name = "Address" , description = "Apis That is Responsible Address retrieval")
 public class AddressController {
     private final AddressService addressService;
