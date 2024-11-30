@@ -8,4 +8,5 @@ import lombok.Setter;
 @Setter
 public class SignUpResponse extends GenericResponse {
     private int userId;
+    private String phoneNumber;
 }

@@ -54,6 +54,7 @@ public class SignUpService {
 
             verificationService.createAndSendVerificationCode(createdUser,"SMS");
             response.setUserId(createdUser.getUser_id());
+            response.setPhoneNumber(createdUser.getPhone_number());
             response.setSuccessful(messageService.getMessage("register.success"));
         }catch (Exception e){
             response.setServerError(messageService.getMessage("unexpected.error"));

@@ -152,6 +152,7 @@ public class VerificationService {
 
                 verificationRecord.setVerification_code(verificationCode);
                 verificationRecord.setCreated_at(dateTimeService.getCurrentTimestamp());
+                verificationRecord.setExpires_at(dateTimeService.addMinutesToNow(10));
                 resetResendTime(verificationRecord);
                 verificationRepository.save(verificationRecord);
 
