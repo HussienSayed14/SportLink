@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/sportsLink/api/v1/userAuth")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 @Tag(name = "User Authentication" , description = "Apis That is Responsible User Authenticated Operations, does not need JWT token")
 public class AuthenticationController {
 
