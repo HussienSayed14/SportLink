@@ -1,9 +1,8 @@
 package com.SportsLink.userData.dtos;
 
-import com.SportsLink.userAuthentication.RolesEnum;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
