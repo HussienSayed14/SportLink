@@ -7,6 +7,7 @@ import com.SportsLink.userAuthentication.UserRepository;
 import com.SportsLink.userAuthentication.login.requests.LoginRequest;
 import com.SportsLink.userAuthentication.login.responses.LoginResponse;
 import com.SportsLink.userAuthentication.verification.VerificationService;
+import com.SportsLink.userData.dtos.UserDetailsDto;
 import com.SportsLink.utils.DateTimeService;
 import com.SportsLink.utils.GenericResponse;
 import com.SportsLink.utils.MessageService;
@@ -51,16 +52,15 @@ public class LoginService {
                     && isPasswordCorrect(request.getPassword(), user,response)){
                 user.setLast_login(dateTimeService.getCurrentTimestamp());
                 user.setFailed_attempts(0);
-
-                response.setRole(String.valueOf(user.getRole()));
-                response.setFullName(user.getName());
-                response.setToken(jwtService.generateToken(user,user.getUser_id()));
+                UserDetailsDto userDetails = new UserDetailsDto(user.getUser_id(),user.getPhone_number(),user.getName(),String.valueOf(user.getRole()),user.getCreated_at());
+                response.setUserDetails(userDetails);
+                String token = jwtService.generateToken(user,user.getUser_id());
                 response.setSuccessful(messageService.getMessage("generic.success"));
                 userRepository.save(user);
-                loginAuditService.createSuccessLoginAudit(user,response.getToken(),"1.1.1",response.getMessage());
+                loginAuditService.createSuccessLoginAudit(user,token,"1.1.1",response.getMessage());
 
 
-                Cookie jwtCookie = new Cookie("token", response.getToken());
+                Cookie jwtCookie = new Cookie("token", token);
                 jwtCookie.setHttpOnly(true);  // Make it HttpOnly
                 jwtCookie.setSecure(false);    // Set secure flag if you're using HTTPS
                 jwtCookie.setPath("/");       // Cookie available for all endpoints

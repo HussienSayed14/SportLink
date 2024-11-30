@@ -1,5 +1,7 @@
 package com.SportsLink.userAuthentication;
 
+import com.SportsLink.userData.dtos.UserDetailsDto;
+import com.SportsLink.userData.dtos.UserDetailsProjection;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -30,4 +32,9 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 
     @Query(value = "SELECT u FROM UserModel u WHERE u.user_id =:userId")
     UserModel getUserById(int userId);
+
+    @Query(value = "SELECT u.user_id as id, u.phone_number as phone, u.name as name, u.role as role, u.created_at as timestamp " +
+            "FROM UserModel u " +
+            "WHERE u.user_id =:userId")
+    UserDetailsProjection getUserDetailsById(int userId);
 }
