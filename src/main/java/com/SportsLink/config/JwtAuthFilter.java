@@ -50,13 +50,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
           */
 
         if(jwtToken == null ) {
-            // If the token is null, return a 403 response and stop the filter chain
-            response.setContentType("application/json");
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN); // 403 status code
-            response.getWriter().write("{\"message\": \"You are not authorized to access this resource, please login first\"}");
+
+            filterChain.doFilter(request, response);
             return;
 
-//            filterChain.doFilter(request, response);
         }
 
 

@@ -77,7 +77,7 @@ public class ForgotPasswordService {
 
     private void sendForgotPassword(String token, UserModel user){
         String redirectUrl = environment.getProperty("frontend.forgot.password.url") 
-                + "?token=" + token + "?id=" + user.getUser_id();
+                + "?token=" + token + "&id=" + user.getUser_id();
         smsDailyLimitService.incrementSmsDailyLimit(user, LimitTypeEnum.FORGOT_PASSWORD.toString());
         smsService.sendWhatsAppForgotPasswordMessage(user.getPhone_number(),
                 redirectUrl,
