@@ -2,7 +2,10 @@ package com.SportsLink.config;
 
 
 import com.SportsLink.userAuthentication.UserRepository;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -13,6 +16,8 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.concurrent.TimeUnit;
 
 
 @Configuration
@@ -45,6 +50,24 @@ public class AppConfig{
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    public Caffeine<Object, Object> caffeineConfig() {
+        return Caffeine.newBuilder()
+                .maximumSize(1000) // Maximum number of entries in the cache
+                .expireAfterWrite(12, TimeUnit.HOURS); // Cache entry expiration time
+    }
+
+    @Bean
+    public CacheManager cacheManager(Caffeine<Object, Object> caffeine) {
+        CaffeineCacheManager cacheManager = new CaffeineCacheManager(
+                "governorates", "cities", "districts"
+        );
+        cacheManager.setCaffeine(caffeine);
+        return cacheManager;
+    }
+
+
 
 
 
