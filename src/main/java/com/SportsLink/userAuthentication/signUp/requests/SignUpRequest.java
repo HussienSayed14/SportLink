@@ -36,5 +36,9 @@ public class SignUpRequest {
 
     @NotNull(message = "{countryCode.notNull}")
     private String countryCode;
+
+    private int governorateId;
+    private int cityId;
+    private int districtId;
 }
 

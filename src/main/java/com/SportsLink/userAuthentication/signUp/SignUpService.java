@@ -1,6 +1,9 @@
 package com.SportsLink.userAuthentication.signUp;
 
 
+import com.SportsLink.address.CityModel;
+import com.SportsLink.address.DistrictModel;
+import com.SportsLink.address.GovernoratesModel;
 import com.SportsLink.userAuthentication.UserModel;
 import com.SportsLink.userAuthentication.UserRepository;
 import com.SportsLink.userAuthentication.signUp.requests.SignUpRequest;
@@ -10,6 +13,7 @@ import com.SportsLink.utils.DateTimeService;
 import com.SportsLink.utils.GenericResponse;
 import com.SportsLink.utils.MessageService;
 import com.SportsLink.utils.PhoneNumberService;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +30,7 @@ public class SignUpService {
     private final BCryptPasswordEncoder passwordEncoder;
     private final MessageService messageService;
     private final VerificationService verificationService;
+    private final EntityManager entityManager;
     private static final Logger logger = LoggerFactory.getLogger(SignUpService.class);
 
 
@@ -49,6 +54,19 @@ public class SignUpService {
                     .created_at(dateTimeService.getCurrentTimestamp())
                     .password_hash(passwordEncoder.encode(request.getPassword()))
                     .build();
+
+            if(request.getGovernorateId() != 0){
+                GovernoratesModel gov = entityManager.getReference(GovernoratesModel.class, request.getGovernorateId());
+                user.setGovernorate(gov);
+            }
+            if(request.getCityId() != 0){
+                CityModel city = entityManager.getReference(CityModel.class, request.getCityId());
+                user.setCity(city);
+            }
+            if(request.getDistrictId() != 0){
+                DistrictModel district = entityManager.getReference(DistrictModel.class, request.getDistrictId());
+                user.setDistrict(district);
+            }
 
             UserModel createdUser = userRepository.save(user);
 

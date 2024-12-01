@@ -1,13 +1,11 @@
 package com.SportsLink.followers;
 
 import com.SportsLink.fields.FieldModel;
-import com.SportsLink.reviews.ReviewService;
 import com.SportsLink.userAuthentication.UserModel;
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
