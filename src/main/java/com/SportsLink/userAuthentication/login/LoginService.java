@@ -36,6 +36,7 @@ public class LoginService {
     public ResponseEntity<GenericResponse> login(LoginRequest request, HttpServletResponse httpResponse) {
         LoginResponse response = new LoginResponse();
 
+        //TODO: Encrypt Token value
         try{
             UserModel user =
                     userRepository.findUserByPhoneNumber(
