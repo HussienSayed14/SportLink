@@ -17,14 +17,14 @@ public class AddressController {
 
     // Endpoint to get all governorates
     @GetMapping("/governorates")
-    public List<AddressResponseDto> getAllGovernorates(@RequestHeader(value = "Accept-Language", defaultValue = "en")
+    public List<AddressProjection> getAllGovernorates(@RequestHeader(value = "Accept-Language", defaultValue = "en")
                                                            String language) {
         return addressService.getAllGovernorates(language);
     }
 
     // Endpoint to get all cities in a specific governorate
     @GetMapping("/governorates/{governorateId}/cities")
-    public List<AddressResponseDto> getCitiesInGovernorate(@RequestHeader(value = "Accept-Language", defaultValue = "en")
+    public List<AddressProjection> getCitiesInGovernorate(@RequestHeader(value = "Accept-Language", defaultValue = "en")
                                                                String language,
                                                           @PathVariable int governorateId) {
         return addressService.getCitiesInGovernorate(language, governorateId);
@@ -32,7 +32,7 @@ public class AddressController {
 
     // Endpoint to get all districts in a specific city
     @GetMapping("/cities/{cityId}/districts")
-    public List<AddressResponseDto> getDistrictsInCity(@RequestHeader(value = "Accept-Language", defaultValue = "en")
+    public List<AddressProjection> getDistrictsInCity(@RequestHeader(value = "Accept-Language", defaultValue = "en")
                                                            String language,
                                                        @PathVariable int cityId) {
         return addressService.getDistrictsInCity(language, cityId);

@@ -11,15 +11,15 @@ public class AddressService {
     private final AddressRepository addressRepository;
 
 
-    public List<AddressResponseDto> getAllGovernorates(String language) {
+    public List<AddressProjection> getAllGovernorates(String language) {
         return addressRepository.getAllGovernorates(language);
     }
 
-    public List<AddressResponseDto> getCitiesInGovernorate(String language, int governorateId) {
+    public List<AddressProjection> getCitiesInGovernorate(String language, int governorateId) {
         return addressRepository.getCitiesInGovernorate(language, governorateId);
     }
 
-    public List<AddressResponseDto> getDistrictsInCity(String language, int cityId) {
+    public List<AddressProjection> getDistrictsInCity(String language, int cityId) {
         return addressRepository.getDistrictsInCity(language, cityId);
     }
 }
