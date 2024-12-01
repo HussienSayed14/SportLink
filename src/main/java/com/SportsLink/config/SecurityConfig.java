@@ -23,6 +23,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests((authrize) -> authrize
                 .requestMatchers("/sportsLink/api/v1/userAuth/**",
                         "/sportsLink/api/v1/address/**",
+                        "/actuator/**",
                         "/h2-console/**",
                         "/swagger-ui/**",
                         "/v3/api-docs/**").permitAll()
