@@ -12,7 +12,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AddressService {
     private final AddressRepository addressRepository;
-    private CacheManager cacheManager;
 
     @Cacheable(value = "governorates", key = "#language")
     public List<AddressProjection> getAllGovernorates(String language) {
