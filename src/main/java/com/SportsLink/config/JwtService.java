@@ -35,7 +35,7 @@ public class JwtService {
                 }
             }
         }
-        return null;  // No JWT token found in cookies
+        return null;
     }
 
     public Integer extractUserIdFromCookie(HttpServletRequest request){

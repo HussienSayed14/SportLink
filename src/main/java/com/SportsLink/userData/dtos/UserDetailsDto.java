@@ -11,9 +11,9 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 public class UserDetailsDto {
-    private int userId;
-    private String phoneNumber;
+    private int id;
+    private String phone;
     private String name;
     private String role;
-    private Timestamp createdAt;
+    private Timestamp timestamp;
 }
