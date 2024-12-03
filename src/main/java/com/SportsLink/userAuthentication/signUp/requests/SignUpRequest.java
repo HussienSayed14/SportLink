@@ -31,9 +31,6 @@ public class SignUpRequest {
     @Size(max = 120, message = "{email.size}")
     private String email;
 
-    @NotNull(message = "{role.notNull}")
-    private RolesEnum role;
-
     @NotNull(message = "{countryCode.notNull}")
     private String countryCode;
 

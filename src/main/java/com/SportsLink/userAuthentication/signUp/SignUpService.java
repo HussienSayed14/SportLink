@@ -4,6 +4,7 @@ package com.SportsLink.userAuthentication.signUp;
 import com.SportsLink.address.CityModel;
 import com.SportsLink.address.DistrictModel;
 import com.SportsLink.address.GovernoratesModel;
+import com.SportsLink.userAuthentication.RolesEnum;
 import com.SportsLink.userAuthentication.UserModel;
 import com.SportsLink.userAuthentication.UserRepository;
 import com.SportsLink.userAuthentication.signUp.requests.SignUpRequest;
@@ -48,7 +49,7 @@ public class SignUpService {
                     .phone_number(PhoneNumberService.formatPhoneNumber(request.getCountryCode(),request.getPhoneNumber()))
                     .email(request.getEmail())
                     .name(request.getFullName())
-                    .role(request.getRole())
+                    .role(RolesEnum.ROLE_USER)
                     .blocked_until(null)
                      .is_activated(true)
                     .created_at(dateTimeService.getCurrentTimestamp())
