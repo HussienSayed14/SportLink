@@ -92,7 +92,7 @@ public class AuthenticationController {
         Cookie cookie = new Cookie("token", null); // Set value to null
         // Set the cookie attributes to ensure it gets removed in the browser
         cookie.setHttpOnly(true);
-        cookie.setSecure(true); // Same as when you set it (ensure it's only sent over HTTPS)
+        cookie.setSecure(false); // Same as when you set it (ensure it's only sent over HTTPS)
         cookie.setPath("/"); // Same as the original cookie path
         cookie.setMaxAge(0); // This will remove the cookie immediately
 
