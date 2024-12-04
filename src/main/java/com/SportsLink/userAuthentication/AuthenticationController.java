@@ -88,6 +88,7 @@ public class AuthenticationController {
 
     @PostMapping("/logout")
     public ResponseEntity<String> logout(HttpServletResponse response) {
+        System.out.println("Calling logout");
         // Create a new Cookie with the same name as the JWT cookie
         Cookie cookie = new Cookie("token", null); // Set value to null
         // Set the cookie attributes to ensure it gets removed in the browser
