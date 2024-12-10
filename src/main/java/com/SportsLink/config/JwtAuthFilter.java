@@ -41,6 +41,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
            @NonNull FilterChain filterChain)
             throws ServletException, IOException {
 
+
         /** Extract the JWT from the HttpOnly cookie */
         final String jwtToken = jwtService.getJwtFromCookies(request);
 
@@ -50,10 +51,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
           */
 
         if(jwtToken == null ) {
-
             filterChain.doFilter(request, response);
             return;
-
         }
 
 

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/sportsLink/api/v1/fields")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173/", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:5173/", allowCredentials = "true", methods = {RequestMethod.POST, RequestMethod.GET, RequestMethod.DELETE, RequestMethod.OPTIONS})
 @Tag(name = "Fields" , description = "Apis That is Responsible Field Creation, Edit and searching")
 public class FieldController {
 
@@ -24,7 +24,7 @@ public class FieldController {
     private final ReviewService reviewService;
 
 //    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_OWNER')")
-    @PostMapping("/createField")
+    @PostMapping(value = "/createField")
     ResponseEntity<GenericResponse> createField(@Valid @RequestBody CreateFieldRequest request, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             String errorMessage = bindingResult.getAllErrors().get(0).getDefaultMessage();
