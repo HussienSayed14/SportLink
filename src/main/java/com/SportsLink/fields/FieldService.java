@@ -89,9 +89,10 @@ public class FieldService {
             Specification<FieldModel> spec = FieldSpecification.searchFields(request);
             List<FieldModel>  searchResult = fieldRepository.findAll(spec);
 
-            searchResult.stream().map(field -> mapToDto(field, language)).collect(Collectors.toList());
+            List<FieldSearchResult> fields = searchResult.stream().map(field -> mapToDto(field, language)).collect(Collectors.toList());
 
             response.setSuccessful(messageService.getMessage("generic.success"));
+            response.setFields(fields);
 
         }catch (Exception e){
             response.setServerError(messageService.getMessage("unexpected.error"));
