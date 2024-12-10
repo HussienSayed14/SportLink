@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/sportsLink/api/v1/fields")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173/", allowCredentials = "true", methods = {RequestMethod.POST, RequestMethod.GET, RequestMethod.DELETE, RequestMethod.OPTIONS})
+@CrossOrigin(origins = "http://localhost:5173/", allowCredentials = "true")
 @Tag(name = "Fields" , description = "Apis That is Responsible Field Creation, Edit and searching")
 public class FieldController {
 
