@@ -62,16 +62,16 @@ public class FieldModel {
     @Column(name = "google_maps_location", nullable = false, length = 255)
     private String googleMapsLocation;
 
-    @OneToOne
-    @JoinColumn(name = "governorate_id", referencedColumnName = "governorate_id")
+    @ManyToOne
+    @JoinColumn(name = "governorate_id")
     private GovernoratesModel governorate;
 
-    @OneToOne
-    @JoinColumn(name = "city_id", referencedColumnName = "city_id")
+    @ManyToOne
+    @JoinColumn(name = "city_id")
     private CityModel city;
 
-    @OneToOne
-    @JoinColumn(name = "district_id", referencedColumnName = "district_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "district_id")
     private DistrictModel district;
 
     @OneToMany(mappedBy = "field", cascade = CascadeType.ALL, orphanRemoval = true)

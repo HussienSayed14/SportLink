@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,10 +24,10 @@ public class DistrictModel {
     private String name_en;
     @Column(length = 40)
     private String name_ar;
-    @OneToOne(mappedBy = "district")
-    private FieldModel field;
-    @OneToOne(mappedBy = "district")
-    private UserModel user;
+    @OneToMany(mappedBy = "district")
+    private List<FieldModel> fields;
+    @OneToMany(mappedBy = "district")
+    private List<UserModel> users;
     @ManyToOne
     @JoinColumn(name = "city_id")
     private CityModel city;

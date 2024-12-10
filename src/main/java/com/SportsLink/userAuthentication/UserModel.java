@@ -83,16 +83,16 @@ public class UserModel implements UserDetails {
     @OneToMany(mappedBy = "user_id", fetch = FetchType.LAZY)
     private List<SmsDailyLimitModel> dailyLimits;
 
-    @OneToOne
-    @JoinColumn(name = "governorate_id", referencedColumnName = "governorate_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "governorate_id")
     private GovernoratesModel governorate;
 
-    @OneToOne
-    @JoinColumn(name = "city_id", referencedColumnName = "city_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "city_id")
     private CityModel city;
 
-    @OneToOne
-    @JoinColumn(name = "district_id", referencedColumnName = "district_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "district_id")
     private DistrictModel district;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)

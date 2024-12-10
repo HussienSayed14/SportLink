@@ -1,15 +1,13 @@
 package com.SportsLink.fields.requests;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class CreateFieldRequest {
+    @Min(value = 1, message = "Id must be larger than 1")
     @NotNull(message = "Field owner ID is required")
     private Integer fieldOwnerId;
 

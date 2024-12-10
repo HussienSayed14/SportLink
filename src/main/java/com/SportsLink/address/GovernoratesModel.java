@@ -22,10 +22,10 @@ public class GovernoratesModel {
     private String name_en;
     @Column(length = 40)
     private String name_ar;
-    @OneToOne(mappedBy = "governorate")
-    private FieldModel field;
-    @OneToOne(mappedBy = "governorate")
-    private UserModel user;
+    @OneToMany(mappedBy = "governorate")
+    private List<FieldModel> fields;
+    @OneToMany(mappedBy = "governorate")
+    private List<UserModel> users;
     @OneToMany(mappedBy = "governorate", fetch = FetchType.LAZY)
     private List<CityModel> cities;
 

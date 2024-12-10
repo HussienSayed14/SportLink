@@ -24,10 +24,10 @@ public class CityModel {
     private String nameEn;
     @Column(length = 40)
     private String nameAr;
-    @OneToOne(mappedBy = "city")
-    private FieldModel field;
-    @OneToOne(mappedBy = "city")
-    private UserModel user;
+    @OneToMany(mappedBy = "city")
+    private List<FieldModel> fields;
+    @OneToMany(mappedBy = "city")
+    private List<UserModel> users;
     @ManyToOne
     @JoinColumn(name = "governorate_id")
     GovernoratesModel governorate;
