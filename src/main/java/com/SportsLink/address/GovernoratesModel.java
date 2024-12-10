@@ -26,7 +26,7 @@ public class GovernoratesModel {
     private FieldModel field;
     @OneToOne(mappedBy = "governorate")
     private UserModel user;
-    @OneToMany(mappedBy = "governorate",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "governorate", fetch = FetchType.LAZY)
     private List<CityModel> cities;
 
 }

@@ -1,4 +1,5 @@
 package com.SportsLink.config;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -14,7 +15,7 @@ public class CorsConfig {
         config.setAllowCredentials(true); // Allow credentials (cookies)
         config.addAllowedOrigin("http://localhost:5173/"); // Add your frontend URL
         config.addAllowedHeader("*"); // Allow all headers
-        config.addAllowedMethod("*"); // Allow all HTTP methods (GET, POST, etc.)
+        config.addAllowedMethod("*");// Allow all HTTP methods (GET, POST, etc.)
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);

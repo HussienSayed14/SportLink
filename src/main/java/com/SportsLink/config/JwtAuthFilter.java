@@ -74,6 +74,15 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                     response.setContentType("application/json");
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 status code
                     response.getWriter().write("{\"message\": \"Your session has expired, please login again\"}");
+                    Cookie cookie = new Cookie("token", null); // Set value to null
+                    // Set the cookie attributes to ensure it gets removed in the browser
+                    cookie.setHttpOnly(true);
+                    cookie.setSecure(false); // Same as when you set it (ensure it's only sent over HTTPS)
+                    cookie.setPath("/"); // Same as the original cookie path
+                    cookie.setMaxAge(0); // This will remove the cookie immediately
+
+                    // Add the cookie to the response to remove it from the browser
+                    response.addCookie(cookie);
                     return;
                 }
             }
@@ -81,10 +90,17 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 status code
             response.getWriter().write("{\"message\": \"Your session has expired, please login again\"}");
+            Cookie cookie = new Cookie("token", null); // Set value to null
+            // Set the cookie attributes to ensure it gets removed in the browser
+            cookie.setHttpOnly(true);
+            cookie.setSecure(false); // Same as when you set it (ensure it's only sent over HTTPS)
+            cookie.setPath("/"); // Same as the original cookie path
+            cookie.setMaxAge(0); // This will remove the cookie immediately
+
+            // Add the cookie to the response to remove it from the browser
+            response.addCookie(cookie);
             return;
         }
         filterChain.doFilter(request,response);
-
-
     }
 }

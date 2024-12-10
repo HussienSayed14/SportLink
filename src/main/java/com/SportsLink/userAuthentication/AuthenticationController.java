@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/sportsLink/api/v1/userAuth")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:5173/", allowCredentials = "true")
-@Tag(name = "User Authentication" , description = "Apis That is Responsible User Authenticated Operations, does not need JWT token")
+@Tag(name = "User Authentication", description = "Apis That is Responsible User Authenticated Operations, does not need JWT token")
 public class AuthenticationController {
 
     private final SignUpService signUpService;
@@ -36,16 +36,16 @@ public class AuthenticationController {
 
 
     @PostMapping(value = "/signUp", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<GenericResponse> signUp(@Valid @RequestBody SignUpRequest request, BindingResult bindingResult){
-         if (bindingResult.hasErrors()) {
+    ResponseEntity<GenericResponse> signUp(@Valid @RequestBody SignUpRequest request, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             String errorMessage = bindingResult.getAllErrors().get(0).getDefaultMessage();
             return ResponseEntity.badRequest().body(new GenericResponse(errorMessage));
         }
-         return signUpService.signUp(request);
+        return signUpService.signUp(request);
     }
 
     @PostMapping(value = "/verifyUser")
-    ResponseEntity<GenericResponse> verifyUser(@Valid @RequestBody VerifyUserRequest request, BindingResult bindingResult){
+    ResponseEntity<GenericResponse> verifyUser(@Valid @RequestBody VerifyUserRequest request, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             String errorMessage = bindingResult.getAllErrors().get(0).getDefaultMessage();
             return ResponseEntity.badRequest().body(new GenericResponse(errorMessage));
@@ -54,21 +54,21 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<GenericResponse> login(@Valid @RequestBody LoginRequest request, HttpServletResponse response, BindingResult bindingResult){
+    ResponseEntity<GenericResponse> login(@Valid @RequestBody LoginRequest request, HttpServletResponse response, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             String errorMessage = bindingResult.getAllErrors().get(0).getDefaultMessage();
             return ResponseEntity.badRequest().body(new GenericResponse(errorMessage));
         }
-        return loginService.login(request,response);
+        return loginService.login(request, response);
     }
 
     @PostMapping("/resendCode/{userId}")
-    ResponseEntity<GenericResponse> resendVerificationCode(@PathVariable int userId){
+    ResponseEntity<GenericResponse> resendVerificationCode(@PathVariable int userId) {
         return verificationService.resendVerificationCode(userId);
     }
 
     @PostMapping("/forgotPassword")
-    ResponseEntity<GenericResponse> createForgotPassword(@Valid @RequestBody ForgotPasswordRequest request, BindingResult bindingResult){
+    ResponseEntity<GenericResponse> createForgotPassword(@Valid @RequestBody ForgotPasswordRequest request, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             String errorMessage = bindingResult.getAllErrors().get(0).getDefaultMessage();
             return ResponseEntity.badRequest().body(new GenericResponse(errorMessage));
@@ -77,7 +77,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/resetPassword")
-    ResponseEntity<GenericResponse> resetUserPassword(@Valid @RequestBody NewPasswordRequest request, BindingResult bindingResult){
+    ResponseEntity<GenericResponse> resetUserPassword(@Valid @RequestBody NewPasswordRequest request, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             String errorMessage = bindingResult.getAllErrors().get(0).getDefaultMessage();
             return ResponseEntity.badRequest().body(new GenericResponse(errorMessage));

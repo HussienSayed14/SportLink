@@ -8,7 +8,6 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -22,10 +21,9 @@ import java.util.concurrent.TimeUnit;
 
 @Configuration
 @RequiredArgsConstructor
-public class AppConfig{
+public class AppConfig {
 
     private final UserRepository userRepository;
-    private final Environment environment;
 
 
     @Bean
@@ -33,6 +31,7 @@ public class AppConfig{
         return username -> userRepository.findOptionalUserByPhoneNumber(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
+
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -67,11 +66,6 @@ public class AppConfig{
         cacheManager.setCaffeine(caffeine);
         return cacheManager;
     }
-
-
-
-
-
 
 
 }

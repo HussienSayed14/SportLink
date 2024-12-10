@@ -21,5 +21,4 @@ public interface AddressRepository extends JpaRepository<DistrictModel, Integer>
     List<AddressProjection> getDistrictsInCity(String language, int cityId);
 
 
-
 }

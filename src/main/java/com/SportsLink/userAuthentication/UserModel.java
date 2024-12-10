@@ -34,7 +34,7 @@ import java.util.List;
 @Setter
 @Builder
 @Table(name = "users", indexes = {
-        @Index(name = "idx_phone_number",columnList = "phone_number",unique = true)
+        @Index(name = "idx_phone_number", columnList = "phone_number", unique = true)
 })
 
 public class UserModel implements UserDetails {
@@ -50,7 +50,7 @@ public class UserModel implements UserDetails {
     private String email;
     @NotNull(message = "Name cannot be null")
     @Size(max = 100, message = "Name must be less than or equal to 100 characters")
-    @Column(name = "name",length = 100, nullable = false)
+    @Column(name = "name", length = 100, nullable = false)
     private String name;
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -68,10 +68,10 @@ public class UserModel implements UserDetails {
     private Timestamp created_at;
     private Timestamp last_login = null;
     @JsonIgnore
-    @OneToMany(mappedBy = "user_id",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user_id", fetch = FetchType.LAZY)
     private List<LoginAuditModel> loginAudits;
     @JsonIgnore
-    @OneToMany(mappedBy = "fieldOwner",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "fieldOwner", fetch = FetchType.LAZY)
     private List<FieldModel> ownedFields;
     @JsonIgnore
     @OneToOne(mappedBy = "user_id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -80,7 +80,7 @@ public class UserModel implements UserDetails {
     @JsonIgnore
     private ForgotPasswordModel forgotPasswordRecord;
     @JsonIgnore
-    @OneToMany(mappedBy = "user_id",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user_id", fetch = FetchType.LAZY)
     private List<SmsDailyLimitModel> dailyLimits;
 
     @OneToOne
@@ -103,7 +103,6 @@ public class UserModel implements UserDetails {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserNotificationModel> notifications;
-
 
 
     @Override

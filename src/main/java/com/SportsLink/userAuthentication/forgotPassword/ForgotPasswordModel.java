@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 @Setter
 @Builder
 @Table(name = "forgot_password", indexes = {
-        @Index(name = "idx_userId",columnList = "user_id",unique = true)
+        @Index(name = "idx_userId", columnList = "user_id", unique = true)
 })
 public class ForgotPasswordModel {
 

@@ -10,20 +10,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/sportsLink/api/v1/fields")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:5173/", allowCredentials = "true")
 @Tag(name = "Fields" , description = "Apis That is Responsible Field Creation, Edit and searching")
 public class FieldController {
 
     private final FieldService fieldService;
     private final ReviewService reviewService;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_OWNER')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_OWNER')")
     @PostMapping("/createField")
     ResponseEntity<GenericResponse> createField(@Valid @RequestBody CreateFieldRequest request, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {

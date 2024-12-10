@@ -31,7 +31,7 @@ public class CityModel {
     @ManyToOne
     @JoinColumn(name = "governorate_id")
     GovernoratesModel governorate;
-    @OneToMany(mappedBy = "city",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "city", fetch = FetchType.LAZY)
     private List<DistrictModel> districts;
 
 }

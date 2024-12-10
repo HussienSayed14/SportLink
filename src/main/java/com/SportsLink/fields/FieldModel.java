@@ -19,8 +19,8 @@ import java.util.List;
 @Setter
 @Builder
 @Table(name = "field", indexes = {
-        @Index(name = "idx_city",columnList = "city_id"),
-        @Index(name = "idx_district",columnList = "district_id"),
+        @Index(name = "idx_city", columnList = "city_id"),
+        @Index(name = "idx_district", columnList = "district_id"),
         @Index(name = "idx_hour_price", columnList = "hour_price"),
         @Index(name = "idx_is_blocked", columnList = "is_blocked"),
         @Index(name = "idx_city_hour_price", columnList = "city_id, hour_price")
