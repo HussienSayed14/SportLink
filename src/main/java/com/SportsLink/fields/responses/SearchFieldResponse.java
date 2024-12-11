@@ -1,6 +1,6 @@
 package com.SportsLink.fields.responses;
 
-import com.SportsLink.fields.FieldModel;
+
 import com.SportsLink.fields.dtos.FieldSearchResult;
 import com.SportsLink.utils.GenericResponse;
 import lombok.Getter;
