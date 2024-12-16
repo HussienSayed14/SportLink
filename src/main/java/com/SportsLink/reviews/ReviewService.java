@@ -29,7 +29,7 @@ public class ReviewService {
     private final ReviewAsyncService reviewAsyncService;
 
 
-    public ResponseEntity<ReviewModel> createReview(CreateReviewRequest request,
+    public ResponseEntity<?> createReview(CreateReviewRequest request,
                                                     String acceptLanguage,
                                                     HttpServletRequest httpServletRequest) {
 
@@ -63,7 +63,7 @@ public class ReviewService {
         FieldReviewsResponse response = new FieldReviewsResponse();
         try{
             response.setReviewsList(reviewRepository.getReviewsByFieldId(fieldId));
-            response.setSuccessful();
+            response.setSuccessful(messageService.getMessage("generic.success"));
         }catch (Exception e){
             response.setServerError(messageService.getMessage("unexpected.error"));
             logger.error("An Error happened while getting reviews for Field \n" +

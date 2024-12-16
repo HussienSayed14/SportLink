@@ -18,7 +18,7 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @PostMapping("/createReview")
-    ResponseEntity<GenericResponse> createFieldReview(@Valid @RequestBody CreateReviewRequest request,
+    ResponseEntity<?> createFieldReview(@Valid @RequestBody CreateReviewRequest request,
                                                       HttpServletRequest httpServletRequest,
                                                       @RequestHeader(value = "Accept-Language", defaultValue = "en") String acceptLanguage,
                                                       BindingResult bindingResult){
