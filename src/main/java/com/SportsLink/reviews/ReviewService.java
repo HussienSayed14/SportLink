@@ -1,10 +1,9 @@
 package com.SportsLink.reviews;
 
-import com.SportsLink.address.GovernoratesModel;
 import com.SportsLink.config.JwtService;
 import com.SportsLink.fields.FieldModel;
-import com.SportsLink.fields.FieldRepository;
 import com.SportsLink.reviews.requests.CreateReviewRequest;
+import com.SportsLink.reviews.response.FieldReviewsResponse;
 import com.SportsLink.userAuthentication.UserModel;
 import com.SportsLink.utils.GenericResponse;
 import com.SportsLink.utils.MessageService;
@@ -13,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -29,9 +29,9 @@ public class ReviewService {
     private final ReviewAsyncService reviewAsyncService;
 
 
-    public ResponseEntity<GenericResponse> createReview(CreateReviewRequest request,
-                                                        String acceptLanguage,
-                                                        HttpServletRequest httpServletRequest) {
+    public ResponseEntity<ReviewModel> createReview(CreateReviewRequest request,
+                                                    String acceptLanguage,
+                                                    HttpServletRequest httpServletRequest) {
 
         GenericResponse response = new GenericResponse();
         try {
@@ -44,18 +44,33 @@ public class ReviewService {
             review.setReviewText(request.getComment());
             review.setUser(entityManager.getReference(UserModel.class, userId));
 
-            reviewRepository.save(review);
+            ReviewModel newReview = reviewRepository.save(review);
 
             reviewAsyncService.updateAverageRating(review.getField());
+            return ResponseEntity.status(HttpStatus.CREATED).body(newReview);
 
         }catch (Exception e){
             response.setServerError(messageService.getMessage("unexpected.error"));
             logger.error("An Error happened while creating review for Field \n" +
                     "Error Message: " + e.getMessage());
             e.printStackTrace();
+            return ResponseEntity.internalServerError().body(null);
         }
-        return ResponseEntity.status(response.getHttpStatus()).body(response);
     }
 
 
+    public ResponseEntity<GenericResponse> getFieldReviews(int fieldId) {
+        FieldReviewsResponse response = new FieldReviewsResponse();
+        try{
+            response.setReviewsList(reviewRepository.getReviewsByFieldId(fieldId));
+            response.setSuccessful();
+        }catch (Exception e){
+            response.setServerError(messageService.getMessage("unexpected.error"));
+            logger.error("An Error happened while getting reviews for Field \n" +
+                    "Error Message: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return ResponseEntity.status(response.getHttpStatus()).body(response);
+    }
 }

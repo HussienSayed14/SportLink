@@ -1,6 +1,5 @@
 package com.SportsLink.reviews;
 
-import com.SportsLink.fields.requests.SearchFieldRequest;
 import com.SportsLink.reviews.requests.CreateReviewRequest;
 import com.SportsLink.utils.GenericResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,5 +28,11 @@ public class ReviewController {
         }
 
         return reviewService.createReview(request,acceptLanguage,httpServletRequest);
+    }
+
+
+    @GetMapping("/getFieldReviews/{fieldId}")
+    ResponseEntity<GenericResponse> getFieldReviews(@PathVariable int fieldId){
+        return reviewService.getFieldReviews(fieldId);
     }
 }
