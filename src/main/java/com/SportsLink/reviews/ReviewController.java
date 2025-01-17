@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/sportsLink/api/v1/review")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:5173/", allowCredentials = "true")
 @Tag(name = "Reviews" , description = "Apis That is Responsible Reviews and Field Ratings")
 public class ReviewController {
     private final ReviewService reviewService;

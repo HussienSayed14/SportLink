@@ -1,6 +1,7 @@
 package com.SportsLink.reviews.projection;
 
-import java.sql.Timestamp;
+
+import java.time.LocalDateTime;
 
 public interface FieldReviewsProjection {
 
@@ -8,5 +9,5 @@ public interface FieldReviewsProjection {
     String getName();
     int getRating();
     String getText();
-    Timestamp getTimestamp();
+    LocalDateTime getTimestamp();
 }

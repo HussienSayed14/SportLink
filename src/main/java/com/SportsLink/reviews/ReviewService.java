@@ -54,7 +54,7 @@ public class ReviewService {
             logger.error("An Error happened while creating review for Field \n" +
                     "Error Message: " + e.getMessage());
             e.printStackTrace();
-            return ResponseEntity.internalServerError().body(null);
+            return ResponseEntity.internalServerError().body(response);
         }
     }
 
@@ -63,6 +63,7 @@ public class ReviewService {
         FieldReviewsResponse response = new FieldReviewsResponse();
         try{
             response.setReviewsList(reviewRepository.getReviewsByFieldId(fieldId));
+
             response.setSuccessful(messageService.getMessage("generic.success"));
         }catch (Exception e){
             response.setServerError(messageService.getMessage("unexpected.error"));
