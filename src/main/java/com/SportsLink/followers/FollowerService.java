@@ -45,4 +45,7 @@ public class FollowerService {
 
     }
 
+    public boolean isUserFollowingField(int userId, int fieldId) {
+        return followersRepository.isUserFollowingField(userId, fieldId);
+    }
 }

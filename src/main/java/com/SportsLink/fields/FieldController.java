@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 public class FieldController {
 
     private final FieldService fieldService;
-    private final ReviewService reviewService;
 
 //    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_OWNER')")
     @PostMapping(value = "/createField")
@@ -52,6 +51,11 @@ public class FieldController {
     @PostMapping("/unfollowField/{fieldId}")
     ResponseEntity<GenericResponse> unfollowField(@PathVariable int fieldId, HttpServletRequest httpServletRequest){
         return fieldService.unfollowField(fieldId, httpServletRequest);
+    }
+
+    @GetMapping("/is-following/{fieldId}")
+    ResponseEntity<Boolean> isFollowing(@PathVariable int fieldId, HttpServletRequest httpServletRequest){
+        return fieldService.isFollowingField(fieldId, httpServletRequest);
     }
 
 

@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -175,5 +176,17 @@ public class FieldService {
     }
 
 
+    public ResponseEntity<Boolean> isFollowingField(int fieldId, HttpServletRequest httpServletRequest) {
+        try{
+            int userId = jwtService.extractUserIdFromCookie(httpServletRequest);
+            boolean isFollowed = followerService.isUserFollowingField(userId, fieldId);
+            return ResponseEntity.status(HttpStatus.OK).body(isFollowed);
+        }catch (Exception e){
+            logger.error("An Error happened while checking Field follower \n" +
+                    "Error Message: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
+        }
 
+    }
 }
