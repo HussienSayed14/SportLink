@@ -3,7 +3,6 @@ package com.SportsLink.fields;
 
 import com.SportsLink.fields.requests.CreateFieldRequest;
 import com.SportsLink.fields.requests.SearchFieldRequest;
-import com.SportsLink.reviews.ReviewService;
 import com.SportsLink.utils.GenericResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
