@@ -2,11 +2,14 @@ package com.SportsLink.payment;
 
 import com.SportsLink.booking.BookingModel;
 import com.SportsLink.fields.FieldModel;
+import com.SportsLink.promocode.PromoCodeFieldModel;
+import com.SportsLink.promocode.PromoCodeUsageModel;
 import com.SportsLink.userAuthentication.UserModel;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -43,5 +46,8 @@ public class PaymentModel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserModel user;
+
+    @OneToMany(mappedBy = "payment", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PromoCodeUsageModel> promoCodeUsage;
 
 }

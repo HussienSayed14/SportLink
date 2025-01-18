@@ -37,4 +37,9 @@ public class PromoCodeModel {
     @OneToMany(mappedBy = "promoCode", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PromoCodeFieldModel> promoCodeFields;
 
+    @OneToMany(mappedBy = "promoCode", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PromoCodeUsageModel> promoCodeUsage;
+
+
+
 }

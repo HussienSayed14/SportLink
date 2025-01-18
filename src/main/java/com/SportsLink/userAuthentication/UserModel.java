@@ -10,6 +10,7 @@ import com.SportsLink.followers.FollowerModel;
 import com.SportsLink.loginAudit.LoginAuditModel;
 import com.SportsLink.notification.UserNotificationModel;
 import com.SportsLink.payment.PaymentModel;
+import com.SportsLink.promocode.PromoCodeUsageModel;
 import com.SportsLink.reviews.ReviewModel;
 import com.SportsLink.smsLimit.SmsDailyLimitModel;
 import com.SportsLink.userAuthentication.forgotPassword.ForgotPasswordModel;
@@ -111,6 +112,10 @@ public class UserModel implements UserDetails {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PaymentModel> payments;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PromoCodeUsageModel> promoCodeUsage;
+
 
 
 
