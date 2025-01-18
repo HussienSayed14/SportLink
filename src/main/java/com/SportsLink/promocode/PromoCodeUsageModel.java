@@ -40,6 +40,6 @@ public class PromoCodeUsageModel {
     @JoinColumn(name = "field_id", nullable = false)
     private FieldModel field;
 
-    @Column(nullable = false)
+    @Column(name = "usage_date", nullable = false)
     private Timestamp usageDate;
 }
