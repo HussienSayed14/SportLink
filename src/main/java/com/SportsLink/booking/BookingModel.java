@@ -6,6 +6,8 @@ import com.SportsLink.payment.PaymentModel;
 import com.SportsLink.pitch.PitchModel;
 import com.SportsLink.userAuthentication.UserModel;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -27,12 +29,22 @@ public class BookingModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int numOfBookedHours;
+    @Column(name = "number_of_booked_hours", nullable = false)
+    @Min(value = 1, message = "Number of booked hours must be at least 1")
+    private int numberOfBookedHours;
 
+    @Column(name = "creation_date", nullable = false, updatable = false)
+    @NotNull(message = "Creation date cannot be null")
     private Timestamp creationDate;
-    private float totalPrice;
-    private BookingStatus status;
 
+    @Column(name = "total_price", nullable = false)
+    @Min(value = 0, message = "Total price must be at least 0")
+    private float totalPrice;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    @NotNull(message = "Status cannot be null")
+    private BookingStatus status;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserModel user;
