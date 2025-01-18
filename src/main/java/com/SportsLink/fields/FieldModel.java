@@ -4,6 +4,7 @@ import com.SportsLink.address.CityModel;
 import com.SportsLink.address.DistrictModel;
 import com.SportsLink.address.GovernoratesModel;
 import com.SportsLink.followers.FollowerModel;
+import com.SportsLink.horlySlot.HourlySlotModel;
 import com.SportsLink.notification.NotificationModel;
 import com.SportsLink.pitch.PitchModel;
 import com.SportsLink.reviews.ReviewModel;
@@ -92,5 +93,8 @@ public class FieldModel {
 
     @OneToMany(mappedBy = "field", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PitchModel> pitches;
+
+    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<HourlySlotModel> hourlySlots;
 
 }

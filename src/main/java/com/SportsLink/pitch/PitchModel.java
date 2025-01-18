@@ -2,8 +2,11 @@ package com.SportsLink.pitch;
 
 
 import com.SportsLink.fields.FieldModel;
+import com.SportsLink.horlySlot.HourlySlotModel;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -34,6 +37,10 @@ public class PitchModel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "field_id")
     private FieldModel field;
+
+
+    @OneToMany(mappedBy = "pitch", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<HourlySlotModel> hourlySlots;
 
 
 }
