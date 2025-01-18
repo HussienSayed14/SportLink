@@ -1,6 +1,7 @@
 package com.SportsLink.horlySlot;
 
 
+import com.SportsLink.booking.BookingModel;
 import com.SportsLink.fields.FieldModel;
 import com.SportsLink.pitch.PitchModel;
 import jakarta.persistence.*;
@@ -8,6 +9,7 @@ import lombok.*;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -40,4 +42,10 @@ public class HourlySlotModel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "field_id")
     private PitchModel pitch;
+
+    @OneToMany(mappedBy = "startHour", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BookingModel> bookingStartHour;
+
+    @OneToMany(mappedBy = "endHour", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BookingModel> bookingEndHour;
 }

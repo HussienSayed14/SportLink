@@ -1,6 +1,7 @@
 package com.SportsLink.pitch;
 
 
+import com.SportsLink.booking.BookingModel;
 import com.SportsLink.fields.FieldModel;
 import com.SportsLink.horlySlot.HourlySlotModel;
 import jakarta.persistence.*;
@@ -41,6 +42,9 @@ public class PitchModel {
 
     @OneToMany(mappedBy = "pitch", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HourlySlotModel> hourlySlots;
+
+    @OneToMany(mappedBy = "pitch", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BookingModel> booking;
 
 
 }

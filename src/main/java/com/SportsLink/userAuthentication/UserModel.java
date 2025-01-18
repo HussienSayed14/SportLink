@@ -1,6 +1,7 @@
 package com.SportsLink.userAuthentication;
 
 
+import com.SportsLink.booking.BookingModel;
 import com.SportsLink.fields.FieldModel;
 import com.SportsLink.address.CityModel;
 import com.SportsLink.address.DistrictModel;
@@ -103,6 +104,9 @@ public class UserModel implements UserDetails {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserNotificationModel> notifications;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BookingModel> booking;
 
 
     @Override

@@ -3,6 +3,7 @@ package com.SportsLink.fields;
 import com.SportsLink.address.CityModel;
 import com.SportsLink.address.DistrictModel;
 import com.SportsLink.address.GovernoratesModel;
+import com.SportsLink.booking.BookingModel;
 import com.SportsLink.followers.FollowerModel;
 import com.SportsLink.horlySlot.HourlySlotModel;
 import com.SportsLink.notification.NotificationModel;
@@ -96,5 +97,8 @@ public class FieldModel {
 
     @OneToMany(mappedBy = "field", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HourlySlotModel> hourlySlots;
+
+    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BookingModel> booking;
 
 }
