@@ -30,9 +30,7 @@ public class HourlySlotModel {
 
     private Time startTime;
     private Time endTime;
-
     private float hourPrice;
-
     private SlotStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
