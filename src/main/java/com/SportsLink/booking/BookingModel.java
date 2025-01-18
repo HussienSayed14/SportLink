@@ -1,7 +1,7 @@
 package com.SportsLink.booking;
 
 import com.SportsLink.fields.FieldModel;
-import com.SportsLink.horlySlot.HourlySlotModel;
+import com.SportsLink.hourlySlot.HourlySlotModel;
 import com.SportsLink.payment.PaymentModel;
 import com.SportsLink.pitch.PitchModel;
 import com.SportsLink.userAuthentication.UserModel;

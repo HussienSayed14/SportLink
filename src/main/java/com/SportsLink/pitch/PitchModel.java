@@ -3,7 +3,7 @@ package com.SportsLink.pitch;
 
 import com.SportsLink.booking.BookingModel;
 import com.SportsLink.fields.FieldModel;
-import com.SportsLink.horlySlot.HourlySlotModel;
+import com.SportsLink.hourlySlot.HourlySlotModel;
 import jakarta.persistence.*;
 import lombok.*;
 

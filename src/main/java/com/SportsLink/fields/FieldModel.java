@@ -5,7 +5,7 @@ import com.SportsLink.address.DistrictModel;
 import com.SportsLink.address.GovernoratesModel;
 import com.SportsLink.booking.BookingModel;
 import com.SportsLink.followers.FollowerModel;
-import com.SportsLink.horlySlot.HourlySlotModel;
+import com.SportsLink.hourlySlot.HourlySlotModel;
 import com.SportsLink.notification.NotificationModel;
 import com.SportsLink.pitch.PitchModel;
 import com.SportsLink.promocode.PromoCodeFieldModel;
