@@ -5,6 +5,7 @@ import com.SportsLink.address.DistrictModel;
 import com.SportsLink.address.GovernoratesModel;
 import com.SportsLink.followers.FollowerModel;
 import com.SportsLink.notification.NotificationModel;
+import com.SportsLink.pitch.PitchModel;
 import com.SportsLink.reviews.ReviewModel;
 import com.SportsLink.userAuthentication.UserModel;
 import jakarta.persistence.*;
@@ -88,5 +89,8 @@ public class FieldModel {
 
     @OneToMany(mappedBy = "field", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<NotificationModel> notification;
+
+    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PitchModel> pitches;
 
 }
