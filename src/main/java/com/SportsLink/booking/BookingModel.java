@@ -2,12 +2,14 @@ package com.SportsLink.booking;
 
 import com.SportsLink.fields.FieldModel;
 import com.SportsLink.horlySlot.HourlySlotModel;
+import com.SportsLink.payment.PaymentModel;
 import com.SportsLink.pitch.PitchModel;
 import com.SportsLink.userAuthentication.UserModel;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -52,6 +54,10 @@ public class BookingModel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "end_hour_id")
     private HourlySlotModel endHour;
+
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PaymentModel> payments;
+
 
 
 
