@@ -8,6 +8,7 @@ import com.SportsLink.followers.FollowerModel;
 import com.SportsLink.horlySlot.HourlySlotModel;
 import com.SportsLink.notification.NotificationModel;
 import com.SportsLink.pitch.PitchModel;
+import com.SportsLink.promocode.PromoCodeFieldModel;
 import com.SportsLink.reviews.ReviewModel;
 import com.SportsLink.userAuthentication.UserModel;
 import jakarta.persistence.*;
@@ -100,5 +101,8 @@ public class FieldModel {
 
     @OneToMany(mappedBy = "field", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookingModel> booking;
+
+    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PromoCodeFieldModel> promoCodeFields;
 
 }
