@@ -19,25 +19,16 @@ public class HourlySlotsController {
 
     private final HourlySlotService hourlySlotService;
 
-
-    //TODO
-    @GetMapping
-    public ResponseEntity<List<HourlySlotModel>> getHourlySlots(
-            @RequestParam int fieldId,
-            @RequestParam int pitchId) {
-        return ResponseEntity.ok(hourlySlotService.getHourlySlotsByFieldAndPitch(fieldId, pitchId));
-    }
-
-
-    //TODO
-    @GetMapping("/date")
-    public ResponseEntity<List<HourlySlotModel>> getHourlySlotsByDate(
-            @RequestParam int fieldId,
-            @RequestParam int pitchId,
-            @RequestParam Date slotDate) {
-        return ResponseEntity.ok(hourlySlotService.getPitchHourlySlotsByDate(fieldId, pitchId, slotDate));
-    }
+//    //TODO
+//    @GetMapping("/date")
+//    public ResponseEntity<List<HourlySlotModel>> getHourlySlotsByDate(
+//            @RequestParam int fieldId,
+//            @RequestParam int pitchId,
+//            @RequestParam Date slotDate) {
+//        return ResponseEntity.ok(hourlySlotService.getPitchHourlySlotsByDate(fieldId, pitchId, slotDate));
+//    }
     //TODO: Get Detailed Slots for a Specific Pitch, Retrieve all slots (available and booked) for a specific pitch within a custom date range. (getSlotsForPitch)
 
+    //TODO: Get All Slots (Available or Booked or Blocked) for a Date Range
 
 }

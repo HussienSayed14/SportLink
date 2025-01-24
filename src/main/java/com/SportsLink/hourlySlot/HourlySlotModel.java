@@ -60,6 +60,7 @@ public class HourlySlotModel {
     @JoinColumn(name = "pitch_id", nullable = false)
     private PitchModel pitch;
 
+
     @OneToMany(mappedBy = "startHour", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookingModel> bookingStartHour;
 

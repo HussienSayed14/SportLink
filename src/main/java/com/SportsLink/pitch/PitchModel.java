@@ -18,10 +18,7 @@ import java.util.List;
 @Builder
 @Table(
         name = "pitch",
-        indexes = {
-                // Uncomment and modify as needed
-                // @Index(name = "idx_field_pitch_type", columnList = "field_id, pitch_type")
-        }
+        indexes = {@Index(name = "idx_field_id", columnList = "field_id")}
 )
 public class PitchModel {
 
