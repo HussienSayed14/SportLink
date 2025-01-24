@@ -1,8 +1,5 @@
 package com.SportsLink.hourlySlot;
 
-import com.SportsLink.pitch.PitchModel;
-import com.SportsLink.pitch.dto.PitchWithSlotsDTO;
-import com.SportsLink.pitch.dto.SlotDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -10,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,7 +15,7 @@ public class HourlySlotService {
     private static final Logger logger = LoggerFactory.getLogger(HourlySlotService.class);
     private final HourlySlotRepository hourlySlotRepository;
 
-    public List<SlotDTO> getAllSlotsForPitch(int pitchId, Date startDate, Date endDate, HttpServletRequest request) {
+    public List<SlotProjection> getAllSlotsForPitch(int pitchId, Date startDate, Date endDate, HttpServletRequest request) {
 
         try {
             if (startDate == null) {
@@ -30,7 +26,7 @@ public class HourlySlotService {
             }
 
 
-                List<SlotDTO> slots = hourlySlotRepository.findSlotsByPitchIdAndDateRange(
+                List<SlotProjection> slots = hourlySlotRepository.findSlotsByPitchIdAndDateRange(
                         pitchId, startDate, endDate
                 );
 

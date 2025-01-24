@@ -1,8 +1,7 @@
 package com.SportsLink.hourlySlot;
 
 
-import com.SportsLink.pitch.dto.PitchWithSlotsDTO;
-import com.SportsLink.pitch.dto.SlotDTO;
+
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +23,7 @@ public class HourlySlotsController {
 
 
     @GetMapping("/slots")
-    public ResponseEntity<List<SlotDTO>> getAllSlotsForPitch(
+    public ResponseEntity<List<SlotProjection>> getAllSlotsForPitch(
             @RequestParam int pitchId,
             @RequestParam(required = false) Date startDate,
             @RequestParam(required = false) Date endDate,

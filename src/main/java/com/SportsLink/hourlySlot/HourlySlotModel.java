@@ -3,6 +3,7 @@ package com.SportsLink.hourlySlot;
 import com.SportsLink.booking.BookingModel;
 import com.SportsLink.fields.FieldModel;
 import com.SportsLink.pitch.PitchModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -21,7 +22,6 @@ import java.util.List;
 @Table(
         name = "hourly_slot",
         indexes = {
-                // Uncomment and modify as needed
                 // @Index(name = "idx_city_hour_price", columnList = "city_id, hour_price")
         }
 )
@@ -54,10 +54,12 @@ public class HourlySlotModel {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "field_id", nullable = false)
+    @JsonIgnore
     private FieldModel field;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pitch_id", nullable = false)
+    @JsonIgnore
     private PitchModel pitch;
 
 

@@ -2,8 +2,8 @@ package com.SportsLink.pitch;
 
 
 import com.SportsLink.hourlySlot.HourlySlotRepository;
+import com.SportsLink.hourlySlot.SlotProjection;
 import com.SportsLink.pitch.dto.PitchWithSlotsDTO;
-import com.SportsLink.pitch.dto.SlotDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -40,7 +40,7 @@ public class PitchService {
             List<PitchWithSlotsDTO> result = new ArrayList<>();
             for (PitchModel pitch : activePitches) {
                 // Fetch slots for each pitch
-                List<SlotDTO> slots = hourlySlotRepository.findAvailableSlotsByPitchIdAndDateRange(
+                List<SlotProjection> slots = hourlySlotRepository.findAvailableSlotsByPitchIdAndDateRange(
                         pitch.getId(), startDate, endDate
                 );
 
