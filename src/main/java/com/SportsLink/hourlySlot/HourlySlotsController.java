@@ -1,7 +1,10 @@
 package com.SportsLink.hourlySlot;
 
 
+import com.SportsLink.pitch.dto.PitchWithSlotsDTO;
+import com.SportsLink.pitch.dto.SlotDTO;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +23,15 @@ public class HourlySlotsController {
     private final HourlySlotService hourlySlotService;
 
 
-    //TODO: Get Detailed Slots for a Specific Pitch, Retrieve all slots (available and booked) for a specific pitch within a custom date range. (getSlotsForPitch)
+    @GetMapping("/slots")
+    public ResponseEntity<List<SlotDTO>> getAllSlotsForPitch(
+            @RequestParam int pitchId,
+            @RequestParam(required = false) Date startDate,
+            @RequestParam(required = false) Date endDate,
+            HttpServletRequest request) {
+        return ResponseEntity.ok(hourlySlotService.getAllSlotsForPitch(pitchId, startDate, endDate,request));
+    }
+
 
     //TODO: Get All Slots (Available or Booked or Blocked) for a Date Range
 
