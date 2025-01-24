@@ -10,11 +10,8 @@ import java.sql.Time;
 @Setter
 public class SlotDTO {
     private int slotId;
-    private int pitchId;
-    private int fieldId;
     private Date slotDate;
     private Time startTime;
     private Time endTime;
     private String status;
-
 }

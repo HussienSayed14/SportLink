@@ -18,7 +18,7 @@ import java.util.List;
 @Builder
 @Table(
         name = "pitch",
-        indexes = {@Index(name = "idx_field_id", columnList = "field_id")}
+        indexes = {@Index(name = "idx_field_id_active", columnList = "field_id, is_active")}
 )
 public class PitchModel {
 
@@ -38,6 +38,9 @@ public class PitchModel {
 
     @Column(name = "number_of_players")
     private int numberOfPlayers;
+
+    @Column(name = "hour_price")
+    private float hourPrice;
 
     @Column(name = "is_active", nullable = false)
     private boolean isActive;

@@ -15,5 +15,6 @@ public class PitchWithSlotsDTO {
     private boolean isActive;
     private int pitchNumber;
     private boolean allowBooking;
+    private float hourPrice;
     private List<SlotDTO> slots;
 }

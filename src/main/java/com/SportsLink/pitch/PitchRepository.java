@@ -10,7 +10,7 @@ public interface PitchRepository extends JpaRepository<PitchModel, Integer> {
     @Query(value = """
             SELECT p
             FROM PitchModel p
-            WHERE p.field.id = :fieldId
+            WHERE p.field.id = :fieldId AND p.isActive = true;
             """)
-    List<PitchModel> findPitchesByFieldId(int fieldId);
+    List<PitchModel> findActivePitchesByFieldId(int fieldId);
 }
