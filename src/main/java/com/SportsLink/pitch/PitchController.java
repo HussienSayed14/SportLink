@@ -16,13 +16,8 @@ public class PitchController {
 
     private final PitchService pitchService;
 
-    @GetMapping("/getAll")
-    ResponseEntity<?> getAllFieldPitches(@RequestParam int fieldId, HttpServletRequest request){
-        return pitchService.getAllFieldPitches(fieldId, request);
-    }
 
-    //TODO: Get Pitches with their available hours for a date range.
+    //TODO: Get Detailed Slots for a Specific Pitch, Retrieve all slots (available and booked) for a specific pitch within a custom date range. (getSlotsForPitch)
 
-    //TODO:
 
 }

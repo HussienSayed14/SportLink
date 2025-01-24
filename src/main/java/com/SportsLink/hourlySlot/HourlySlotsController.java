@@ -38,35 +38,8 @@ public class HourlySlotsController {
         return ResponseEntity.ok(hourlySlotService.getPitchHourlySlotsByDate(fieldId, pitchId, slotDate));
     }
 
-    //TODO: Get Available Slots for a Specific Pitch (Filter By Date)
+    //TODO: Get Pitches with Available Slots for Today (or Default Range): getPitchesWithSlotsForField
     //TODO: Get All Slots (Available or Booked or Blocked) for a Date Range
 
-    /*TODO
-    Get Daily Summary of Slots
-Description: Retrieve a summary of all slots for a specific date for a pitch and field, categorized by status.
-
-Endpoint:
-
-http
-Copy
-Edit
-GET /api/hourly-slots/summary
-Query Parameters:
-
-fieldId (required): The ID of the field.
-pitchId (required): The ID of the pitch.
-date (required): The date for which the summary is needed.
-Response Example:
-
-json
-Copy
-Edit
-{
-  "date": "2025-01-18",
-  "totalSlots": 24,
-  "availableSlots": 20,
-  "bookedSlots": 4
-}
-     */
 
 }
