@@ -20,6 +20,8 @@ public class PitchController {
 
     private final PitchService pitchService;
 
+    //TODO: Add create pitch endpoint
+
     //TODO: Restrict access to only field owner and employees.
 
     @GetMapping("/{fieldId}/pitches-with-slots")
