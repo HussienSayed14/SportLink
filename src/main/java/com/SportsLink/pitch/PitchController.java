@@ -17,7 +17,10 @@ public class PitchController {
     private final PitchService pitchService;
 
 
-    //TODO: Get Detailed Slots for a Specific Pitch, Retrieve all slots (available and booked) for a specific pitch within a custom date range. (getSlotsForPitch)
 
+
+
+    //TODO: Get Pitches with Available Slots for Today (or Default Range): getPitchesWithSlotsForField
+    //TODO: Get All Slots (Available or Booked or Blocked) for a Date Range
 
 }

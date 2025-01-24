@@ -37,9 +37,7 @@ public class HourlySlotsController {
             @RequestParam Date slotDate) {
         return ResponseEntity.ok(hourlySlotService.getPitchHourlySlotsByDate(fieldId, pitchId, slotDate));
     }
-
-    //TODO: Get Pitches with Available Slots for Today (or Default Range): getPitchesWithSlotsForField
-    //TODO: Get All Slots (Available or Booked or Blocked) for a Date Range
+    //TODO: Get Detailed Slots for a Specific Pitch, Retrieve all slots (available and booked) for a specific pitch within a custom date range. (getSlotsForPitch)
 
 
 }
