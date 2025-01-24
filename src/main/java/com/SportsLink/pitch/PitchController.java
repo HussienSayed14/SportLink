@@ -20,7 +20,7 @@ public class PitchController {
 
     private final PitchService pitchService;
 
-    //TODO: Get Pitches with Available Slots for Today (or Default Range): getPitchesWithSlotsForField
+    //TODO: Restrict access to only field owner and employees.
 
     @GetMapping("/{fieldId}/pitches-with-slots")
     public ResponseEntity<List<PitchWithSlotsDTO>> getPitchesWithSlots(

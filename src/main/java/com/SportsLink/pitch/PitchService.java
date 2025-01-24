@@ -26,8 +26,6 @@ public class PitchService {
                                                                         Date endDate,
                                                                         HttpServletRequest request) {
 
-        //TODO: Restrict access to only field owner and employees.
-
 
         try {
             if (startDate == null) {
