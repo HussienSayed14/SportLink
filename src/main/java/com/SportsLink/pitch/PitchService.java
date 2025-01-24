@@ -48,11 +48,12 @@ public class PitchService {
                 PitchWithSlotsDTO pitchWithSlotsDTO = new PitchWithSlotsDTO();
                 pitchWithSlotsDTO.setSlots(slots);
                 pitchWithSlotsDTO.setPitchId(pitch.getId());
-                pitchWithSlotsDTO.setPitchNumber(pitchWithSlotsDTO.getPitchNumber());
                 pitchWithSlotsDTO.setPitchNumber(pitch.getPitchNumber());
-                pitchWithSlotsDTO.setPitchType(pitchWithSlotsDTO.getPitchType());
+                pitchWithSlotsDTO.setPitchType(String.valueOf(pitch.getPitchType()));
                 pitchWithSlotsDTO.setAllowBooking(pitch.isAllowBooking());
                 pitchWithSlotsDTO.setHourPrice(pitch.getHourPrice());
+                pitchWithSlotsDTO.setActive(pitch.isActive());
+                pitchWithSlotsDTO.setNumberOfPlayers(pitch.getNumberOfPlayers());
 
                 result.add(pitchWithSlotsDTO);
             }
