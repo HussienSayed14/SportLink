@@ -17,10 +17,27 @@ public interface HourlySlotRepository extends JpaRepository<HourlySlotModel, Int
         FROM HourlySlotModel hs
         WHERE hs.pitch.id = :pitchId
           AND hs.slotDate BETWEEN :startDate AND :endDate
+        ORDER BY hs.slotDate, hs.startTime
     """)
     List<SlotDTO> findSlotsByPitchIdAndDateRange(
              int pitchId,
              Date startDate,
              Date endDate
+    );
+
+    @Query("""
+        SELECT new com.SportsLink.pitch.dto.SlotDTO(
+            hs.id, hs.slotDate, hs.startTime, hs.endTime, hs.status
+        )
+        FROM HourlySlotModel hs
+        WHERE hs.pitch.id = :pitchId
+          AND hs.slotDate BETWEEN :startDate AND :endDate
+          AND hs.status = 'AVAILABLE'
+        ORDER BY hs.slotDate, hs.startTime
+    """)
+    List<SlotDTO> findAvailableSlotsByPitchIdAndDateRange(
+            int pitchId,
+            Date startDate,
+            Date endDate
     );
 }

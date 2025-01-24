@@ -40,7 +40,7 @@ public class PitchService {
             List<PitchWithSlotsDTO> result = new ArrayList<>();
             for (PitchModel pitch : activePitches) {
                 // Fetch slots for each pitch
-                List<SlotDTO> slots = hourlySlotRepository.findSlotsByPitchIdAndDateRange(
+                List<SlotDTO> slots = hourlySlotRepository.findAvailableSlotsByPitchIdAndDateRange(
                         pitch.getId(), startDate, endDate
                 );
 
