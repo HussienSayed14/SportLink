@@ -1,6 +1,10 @@
 package com.SportsLink.hourlySlot;
 
+import jakarta.persistence.LockModeType;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.sql.Date;
@@ -35,4 +39,18 @@ public interface HourlySlotRepository extends JpaRepository<HourlySlotModel, Int
             Date startDate,
             Date endDate
     );
+
+    @Modifying
+    @Transactional
+    @Query("""
+    UPDATE HourlySlotModel hs
+    SET hs.status = 'PENDING'
+    WHERE hs.id IN :slotIds AND hs.status = 'AVAILABLE'
+    """)
+    int markSlotsAsPending(List<Integer> slotIds);
+
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("SELECT hs FROM HourlySlotModel hs WHERE hs.id IN :slotIds")
+    List<HourlySlotModel> findAvailableSlotsWithLock(List<Integer> slotIds);
+
 }
