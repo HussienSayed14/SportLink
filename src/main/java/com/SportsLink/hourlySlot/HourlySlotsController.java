@@ -30,8 +30,4 @@ public class HourlySlotsController {
             HttpServletRequest request) {
         return ResponseEntity.ok(hourlySlotService.getAllSlotsForPitch(pitchId, startDate, endDate,request));
     }
-
-
-    //TODO: Get All Slots (Available or Booked or Blocked) for a Date Range
-
 }
