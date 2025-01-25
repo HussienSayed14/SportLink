@@ -1,6 +1,7 @@
 package com.SportsLink.hourlySlot;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,5 +38,32 @@ public class HourlySlotService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Transactional
+    public void lockSlotsForBooking(List<Integer> slotIds) {
+        List<HourlySlotModel> slots = hourlySlotRepository.findSlotsWithLock(slotIds);
+
+
+        for(HourlySlotModel slot : slots){
+            if(slot.getStatus() != SlotStatus.AVAILABLE){
+                //TODO: set the response that the slot is not available.
+                return;
+            }
+            slot.setStatus(SlotStatus.PENDING);
+        }
+
+        hourlySlotRepository.saveAll(slots);
+    }
+
+    @Transactional
+    public void releaseLockedSlots(List<Integer> slotIds) {
+        List<HourlySlotModel> slots = hourlySlotRepository.findPendingSlotsWithLock(slotIds);
+
+        for (HourlySlotModel slot : slots) {
+            slot.setStatus(SlotStatus.AVAILABLE);
+        }
+
+        hourlySlotRepository.saveAll(slots);
     }
 }

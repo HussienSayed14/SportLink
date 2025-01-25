@@ -11,6 +11,7 @@ import lombok.*;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -46,6 +47,9 @@ public class HourlySlotModel {
     @Column(name = "hour_price", nullable = false)
     @Min(value = 0, message = "Hour price must be greater than or equal to 0")
     private float hourPrice;
+
+    @Column(name = "pending_timestamp")
+    private Timestamp pendingTimestamp;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)

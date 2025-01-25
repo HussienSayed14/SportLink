@@ -49,8 +49,13 @@ public interface HourlySlotRepository extends JpaRepository<HourlySlotModel, Int
     """)
     int markSlotsAsPending(List<Integer> slotIds);
 
+
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT hs FROM HourlySlotModel hs WHERE hs.id IN :slotIds")
     List<HourlySlotModel> findSlotsWithLock(List<Integer> slotIds);
+
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("SELECT hs FROM HourlySlotModel hs WHERE hs.id IN :slotIds AND hs.status = 'PENDING'")
+    List<HourlySlotModel> findPendingSlotsWithLock( List<Integer> slotIds);
 
 }

@@ -2,6 +2,7 @@ package com.SportsLink.hourlySlot;
 
 
 
+import com.SportsLink.hourlySlot.requests.SlotLockRequest;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,22 @@ public class HourlySlotsController {
         return ResponseEntity.ok(hourlySlotService.getAllSlotsForPitch(pitchId, startDate, endDate,request));
     }
 
-    //TODO: Api that takes a list of hourly slots IDs and change it to pending, and set pending date to make it available again after some time.
-    //TODO: Api that changes the pending status if user canceled the process of booking.
+    // Lock slots for booking
+    @PostMapping("/lock-slots")
+    public ResponseEntity<String> lockSlotsForBooking(@RequestBody SlotLockRequest request) {
+        try {
+            hourlySlotService.lockSlotsForBooking(request.getSlotIds());
+            return ResponseEntity.ok("Slots locked successfully.");
+        } catch (IllegalStateException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    // Release locked slots
+    @PostMapping("/release-slots")
+    public ResponseEntity<String> releaseLockedSlots(@RequestBody SlotLockRequest request) {
+        hourlySlotService.releaseLockedSlots(request.getSlotIds());
+        return ResponseEntity.ok("Slots released successfully.");
+    }
+
 }
