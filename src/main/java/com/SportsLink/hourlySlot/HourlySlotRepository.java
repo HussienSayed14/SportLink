@@ -51,6 +51,6 @@ public interface HourlySlotRepository extends JpaRepository<HourlySlotModel, Int
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT hs FROM HourlySlotModel hs WHERE hs.id IN :slotIds")
-    List<HourlySlotModel> findAvailableSlotsWithLock(List<Integer> slotIds);
+    List<HourlySlotModel> findSlotsWithLock(List<Integer> slotIds);
 
 }
