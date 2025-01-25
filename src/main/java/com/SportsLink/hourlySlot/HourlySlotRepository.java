@@ -27,7 +27,7 @@ public interface HourlySlotRepository extends JpaRepository<HourlySlotModel, Int
         FROM HourlySlotModel hs
         WHERE hs.pitch.id = :pitchId
           AND hs.slotDate BETWEEN :startDate AND :endDate
-          AND hs.status = 'AVAILABLE'
+          AND (hs.status = 'AVAILABLE' OR hs.status = 'PENDING'
         ORDER BY hs.slotDate, hs.startTime
     """)
     List<SlotProjection> findAvailableSlotsByPitchIdAndDateRange(

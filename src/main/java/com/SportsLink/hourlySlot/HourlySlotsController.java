@@ -30,4 +30,7 @@ public class HourlySlotsController {
             HttpServletRequest request) {
         return ResponseEntity.ok(hourlySlotService.getAllSlotsForPitch(pitchId, startDate, endDate,request));
     }
+
+    //TODO: Api that takes a list of hourly slots IDs and change it to pending, and set pending date to make it available again after some time.
+    //TODO: Api that changes the pending status if user canceled the process of booking.
 }
